@@ -1,6 +1,6 @@
 # Roadmap
 
-Public roadmap for the CNCF MCP Server. Aligned with [MCP_BLUEPRINT.md](MCP_BLUEPRINT.md) and [DEEP_PLAN.md](DEEP_PLAN.md).
+Public roadmap for MCPAtlas. Aligned with [MCP_BLUEPRINT.md](MCP_BLUEPRINT.md) and [DEEP_PLAN.md](DEEP_PLAN.md).
 
 ## Phase 1: Foundation (complete)
 
@@ -17,13 +17,13 @@ Public roadmap for the CNCF MCP Server. Aligned with [MCP_BLUEPRINT.md](MCP_BLUE
 - [x] Tech debt: protocol version negotiation (returns client's requested version)
 - [x] Tech debt: `logging/setLevel` wired to tracing-subscriber reload handle
 
-## Phase 2: Intelligence
+## Phase 2: Intelligence (nearly complete)
 
 **Goal:** Semantic search, health scoring, richer data, CNCF Sandbox application.
 
-- [x] Storage trait abstraction (GraphBackend, CacheBackend, VectorBackend in `cncf-mcp-data`; `ProjectGraph` implements `GraphBackend`)
+- [x] Storage trait abstraction (GraphBackend, CacheBackend, VectorBackend in `mcp-atlas-data`; `ProjectGraph` implements `GraphBackend`)
 - [x] SurrealDB integration for graph (optional `--graph-backend surreal`, feature `graph-surrealdb`; embedded kv-mem)
-- [x] Qdrant + embeddings, hybrid BM25 + vector search (`cncf-mcp-vector` crate; `--qdrant-url` + `--embedding-api-base`; RRF merge; optional feature `vector-qdrant`)
+- [x] Qdrant + embeddings, hybrid BM25 + vector search (`mcp-atlas-vector` crate; `--qdrant-url` + `--embedding-api-base`; RRF merge; optional feature `vector-qdrant`)
 - [x] Artifact Hub integration (Helm packages per project; `--artifact-hub`; pipeline step with rate limiting)
 - [x] LLM summaries (Ollama/OpenAI-compatible), pipeline integration, content-hash cache skip, fallback
 - Apply for CNCF Sandbox
@@ -58,7 +58,7 @@ Public roadmap for the CNCF MCP Server. Aligned with [MCP_BLUEPRINT.md](MCP_BLUE
 | GitHub stars | 500 | 2,000 | 10,000 |
 | Monthly downloads | 1K | 10K | 100K |
 | Contributors | 5 | 20 | 50+ |
-| MCP tools | 12 | 14+ | 20+ |
+| MCP tools | 14 | 14+ | 20+ |
 | Plugins | 0 | 3 | 15+ |
 | CNCF status | — | Sandbox | Incubating prep |
 

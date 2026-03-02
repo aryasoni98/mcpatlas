@@ -1,19 +1,19 @@
 version: "3.8"
 
 services:
-  cncf-mcp:
+  mcp-atlas:
     build:
       context: ../..
       dockerfile: deploy/docker/Dockerfile
-    container_name: cncf-mcp-server
+    container_name: mcp-atlas-server
     ports:
       - "3000:3000"
     environment:
       - GITHUB_TOKEN=${GITHUB_TOKEN:-}
       - RUST_LOG=info
-      - CNCF_MCP_CACHE_DIR=/data/cache
+      - MCP_ATLAS_CACHE_DIR=/data/cache
     volumes:
-      - cncf-data:/data
+      - mcp-atlas-data:/data
     command: ["--transport", "sse", "--port", "3000", "--cache-dir", "/data/cache"]
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
@@ -24,5 +24,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  cncf-data:
+  mcp-atlas-data:
     driver: local

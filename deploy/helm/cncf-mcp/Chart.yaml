@@ -1,6 +1,6 @@
 apiVersion: v2
-name: cncf-mcp
-description: CNCF MCP Server - MCP server for the CNCF Landscape (2,400+ projects)
+name: mcp-atlas
+description: MCPAtlas - MCP server for the CNCF Landscape (2,400+ projects)
 type: application
 version: 0.1.0
 appVersion: "0.1.0"
@@ -9,8 +9,8 @@ keywords:
   - mcp
   - model-context-protocol
   - landscape
-home: https://github.com/cncf-mcp/server
+home: https://github.com/aryasoni98/MCPAtlas
 sources:
-  - https://github.com/cncf-mcp/server
+  - https://github.com/aryasoni98/MCPAtlas
 maintainers: []
 kubeVersion: ">=1.21-0"

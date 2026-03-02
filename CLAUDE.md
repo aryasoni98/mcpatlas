@@ -96,7 +96,7 @@ MCPAtlas is an MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native pr
 - `Maturity` enum: Sandbox, Incubating, Graduated, Archived, Unknown
 
 ## Productivity: Rules and Skills
-- **Cursor rules** (`.cursor/rules/`): Apply when editing matching paths. `cncf-rust-standards` (Rust), `cncf-mcp-and-api` (MCP/core), `cncf-security-compliance` (always), `cncf-release-and-deploy` (CI/deploy), `cncf-productivity-skills` (when to use wrap-up, smart-commit, etc.).
+- **Cursor rules** (`.cursor/rules/`): Apply when editing matching paths. `cncf-rust-standards` (Rust), `cncf-mcp-and-api` (MCP/core; MCPAtlas), `cncf-security-compliance` (always), `cncf-release-and-deploy` (CI/deploy), `cncf-productivity-skills` (when to use wrap-up, smart-commit, etc.).
 - **Project skills** (`.cursor/skills/`):
   - **Workflow**: **cncf-pre-commit** (before commit: fmt, clippy, test, conventional commit). **cncf-release-checklist** (cutting releases). **cncf-rfc-and-governance** (RFCs, CONTRIBUTING/GOVERNANCE/SECURITY). **cncf-storage-and-architecture** (storage/graph/vector backends).
   - **Roles & expertise**: **product-manager** (roadmap, impact, prioritization, scope, success metrics, CNCF positioning). **solution-architect** (system design, deployment tiers, tradeoffs, scalability, security). **rust-expertise** (async/tokio, errors, serde, performance, testing). **mcp-expertise** (tools/resources/prompts, JSON-RPC, transports, version negotiation, completion, cancellation).

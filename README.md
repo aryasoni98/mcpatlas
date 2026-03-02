@@ -1,5 +1,14 @@
 # MCPAtlas
 
+[![CI](https://img.shields.io/github/actions/workflow/status/mcp-atlas/mcp-atlas/ci.yml?branch=main)](https://github.com/mcp-atlas/mcp-atlas/actions)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Rust](https://img.shields.io/badge/rust-1.85%2B-orange.svg)](https://www.rust-lang.org/)
+[![Docker](https://img.shields.io/badge/docker-ghcr.io%2Fmcp--atlas%2Fmcp--atlas-2496ED?logo=docker)](https://github.com/mcp-atlas/mcp-atlas/pkgs/container/mcp-atlas)
+
+<p align="center">
+  <img src=".github/images/MCPAtlas.png" alt="MCPAtlas - MCP Server for the CNCF Landscape" width="800">
+</p>
+
 **MCP Server for the CNCF Landscape** — Query 2,400+ cloud-native projects from any AI assistant.
 
 An open-source [Model Context Protocol](https://modelcontextprotocol.io/) server that makes the entire [CNCF Landscape](https://landscape.cncf.io/) available to AI tools like Claude, Cursor, VS Code Copilot, and custom agents.
@@ -30,13 +39,20 @@ flowchart LR
   L --> C
   G -.-> C
   C --> Claude & Cursor & VSC & Custom
+
+  classDef source fill:#4ECDC4,stroke:#2C8B82,color:#fff
+  classDef serverNode fill:#556270,stroke:#3D4A59,color:#fff
+  classDef client fill:#E94B3C,stroke:#C23A2E,color:#fff
+  class L,G source
+  class C,S,K serverNode
+  class Claude,Cursor,VSC,Custom client
 ```
 
 How projects connect in the knowledge graph (alternatives, integrations, components):
 
 ```mermaid
 flowchart TB
-  subgraph graph["Knowledge graph"]
+  subgraph kg["Knowledge graph"]
     K8s[Kubernetes]
     Istio[Istio]
     Linkerd[Linkerd]
@@ -47,7 +63,16 @@ flowchart TB
     Linkerd --- Prom
   end
   Tools["get_relationships\nfind_path\nsuggest_stack"]
-  graph <--> Tools
+  kg <--> Tools
+
+  classDef k8s fill:#326CE5,stroke:#1E4AB8,color:#fff
+  classDef mesh fill:#466BB0,stroke:#2D4580,color:#fff
+  classDef monitor fill:#E6522C,stroke:#C24120,color:#fff
+  classDef tools fill:#F7B731,stroke:#D49B1A,color:#1a1a1a
+  class K8s k8s
+  class Istio,Linkerd mesh
+  class Prom monitor
+  class Tools tools
 ```
 
 ## Features
@@ -135,6 +160,13 @@ cd deploy/docker
 docker compose up -d
 ```
 
+### Homebrew
+
+```bash
+# Install from local formula (see deploy/homebrew/README.md for tap instructions)
+brew install ./deploy/homebrew/mcp-atlas.rb
+```
+
 ### CLI Tool
 
 ```bash
@@ -220,6 +252,10 @@ curl -X POST http://localhost:3000/mcp/stream \
 | `--cache-dir` | `MCP_ATLAS_CACHE_DIR` | `~/.cache/mcp-atlas` | Cache directory |
 | `--max-cache-age` | | `86400` | Cache TTL in seconds |
 | `--rate-limit` | | `50` | Max concurrent HTTP requests |
+| `--graph-backend` | `MCP_ATLAS_GRAPH_BACKEND` | `mem` | Graph backend: `mem` or `surrealdb` |
+| `--artifact-hub` | `MCP_ATLAS_ARTIFACT_HUB` | `false` | Enable Artifact Hub Helm package integration |
+| `--qdrant-url` | `MCP_ATLAS_QDRANT_URL` | | Qdrant URL for vector search (enables hybrid search) |
+| `--summary-enabled` | `MCP_ATLAS_SUMMARY_ENABLED` | `false` | Enable LLM summaries for projects |
 
 ## Architecture
 
@@ -230,6 +266,7 @@ mcp-atlas/
 │   ├── mcp-atlas-data/      # Data models, YAML parser, GitHub API, cache
 │   ├── mcp-atlas-search/    # Tantivy full-text search index + benchmarks
 │   ├── mcp-atlas-graph/     # Knowledge graph engine (relationship inference)
+│   ├── mcp-atlas-vector/    # Qdrant + embeddings, hybrid BM25 + vector search
 │   ├── mcp-atlas-plugins/   # WASM plugin system (Phase 3)
 │   └── mcp-atlas-cli/       # CLI companion tool (9 commands)
 ├── deploy/
@@ -240,7 +277,7 @@ mcp-atlas/
 ## Development
 
 ```bash
-cargo test --workspace        # Run all 89 tests
+cargo test --workspace        # Run all 102 tests
 cargo clippy --workspace      # Lint
 cargo fmt --all               # Format
 cargo bench -p mcp-atlas-search # Run search benchmarks

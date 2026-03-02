@@ -37,40 +37,6 @@ fn project_summary_by_name(projects: &[Project], name: &str) -> Option<ProjectSu
         .map(ProjectSummary::from)
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn summary(name: &str) -> ProjectSummary {
-        ProjectSummary {
-            name: name.into(),
-            description: None,
-            category: String::new(),
-            subcategory: String::new(),
-            maturity: None,
-            stars: None,
-            language: None,
-            homepage_url: None,
-            repo_url: None,
-        }
-    }
-
-    #[test]
-    fn rrf_merges_two_lists_by_rank() {
-        let bm25 = vec![summary("A"), summary("B"), summary("C")];
-        let vector = vec![
-            ("C".to_string(), 0.9),
-            ("A".to_string(), 0.8),
-            ("B".to_string(), 0.7),
-        ];
-        let names = reciprocal_rank_fusion(&bm25, &vector, 60);
-        assert_eq!(names.len(), 3);
-        assert!(names.contains(&"A".to_string()));
-        assert!(names.contains(&"B".to_string()));
-        assert!(names.contains(&"C".to_string()));
-    }
-}
-
 /// Handle `search_projects` tool call.
 ///
 /// Supports pagination via `offset` and `limit`. Uses hybrid (BM25 + vector) search when
@@ -678,4 +644,38 @@ fn format_project_summary(index: usize, p: &ProjectSummary) -> String {
         p.category,
         p.subcategory,
     )
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn summary(name: &str) -> ProjectSummary {
+        ProjectSummary {
+            name: name.into(),
+            description: None,
+            category: String::new(),
+            subcategory: String::new(),
+            maturity: None,
+            stars: None,
+            language: None,
+            homepage_url: None,
+            repo_url: None,
+        }
+    }
+
+    #[test]
+    fn rrf_merges_two_lists_by_rank() {
+        let bm25 = vec![summary("A"), summary("B"), summary("C")];
+        let vector = vec![
+            ("C".to_string(), 0.9),
+            ("A".to_string(), 0.8),
+            ("B".to_string(), 0.7),
+        ];
+        let names = reciprocal_rank_fusion(&bm25, &vector, 60);
+        assert_eq!(names.len(), 3);
+        assert!(names.contains(&"A".to_string()));
+        assert!(names.contains(&"B".to_string()));
+        assert!(names.contains(&"C".to_string()));
+    }
 }

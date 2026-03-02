@@ -61,7 +61,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.github.secretName | default (printf "%s-github" (include "mcp-atlas.fullname" .)) }}
                   key: {{ .Values.github.secretKey | default "token" }}
-            {{ end }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /health

@@ -20,15 +20,15 @@ jobs:
       - uses: Swatinem/rust-cache@v2
 
       - name: Build CLI
-        run: cargo build --release -p cncf-mcp-cli
+        run: cargo build --release -p mcp-atlas-cli
 
       - name: Sync landscape data
         run: |
-          ./target/release/cncf-mcp-cli sync --output data/landscape.yml --skip-github
+          ./target/release/mcp-atlas-cli sync --output data/landscape.yml --skip-github
 
       - name: Validate synced data
         run: |
-          ./target/release/cncf-mcp-cli validate data/landscape.yml
+          ./target/release/mcp-atlas-cli validate data/landscape.yml
 
       - name: Upload landscape data
         uses: actions/upload-artifact@v4

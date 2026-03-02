@@ -1,14 +1,14 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "cncf-mcp.name" -}}
+{{- define "mcp-atlas.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Create a default fully qualified app name.
 */}}
-{{- define "cncf-mcp.fullname" -}}
+{{- define "mcp-atlas.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -24,9 +24,9 @@ Create a default fully qualified app name.
 {{/*
 Common labels
 */}}
-{{- define "cncf-mcp.labels" -}}
-helm.sh/chart: {{ include "cncf-mcp.name" . }}
-app.kubernetes.io/name: {{ include "cncf-mcp.name" . }}
+{{- define "mcp-atlas.labels" -}}
+helm.sh/chart: {{ include "mcp-atlas.name" . }}
+app.kubernetes.io/name: {{ include "mcp-atlas.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}

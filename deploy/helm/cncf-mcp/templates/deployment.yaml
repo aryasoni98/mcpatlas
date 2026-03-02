@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "cncf-mcp.fullname" . }}
+  name: {{ include "mcp-atlas.fullname" . }}
   labels:
-    {{- include "cncf-mcp.labels" . | nindent 4 }}
+    {{- include "mcp-atlas.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "cncf-mcp.name" . }}
+      app.kubernetes.io/name: {{ include "mcp-atlas.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "cncf-mcp.name" . }}
+        app.kubernetes.io/name: {{ include "mcp-atlas.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       securityContext:
@@ -21,7 +21,7 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       {{- if .Values.serviceAccount.create }}
-      serviceAccountName: {{ include "cncf-mcp.fullname" . }}-sa
+      serviceAccountName: {{ include "mcp-atlas.fullname" . }}-sa
       {{- else if .Values.serviceAccount.name }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       {{- end }}
@@ -51,7 +51,7 @@ spec:
               containerPort: {{ .Values.port }}
               protocol: TCP
           env:
-            - name: CNCF_MCP_CACHE_DIR
+            - name: MCP_ATLAS_CACHE_DIR
               value: /app/cache
             - name: RUST_LOG
               value: "info"
@@ -59,7 +59,7 @@ spec:
             - name: GITHUB_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.github.secretName | default (printf "%s-github" (include "cncf-mcp.fullname" .)) }}
+                  name: {{ .Values.github.secretName | default (printf "%s-github" (include "mcp-atlas.fullname" .)) }}
                   key: {{ .Values.github.secretKey | default "token" }}
             {{- end }}
           livenessProbe:

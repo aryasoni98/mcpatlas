@@ -74,7 +74,7 @@ pub async fn fetch_github_metrics(
 /// Build a reqwest client configured for GitHub API access.
 pub fn build_github_client(token: Option<&str>) -> Result<reqwest::Client> {
     let mut builder = reqwest::Client::builder()
-        .user_agent("cncf-mcp/0.1.0")
+        .user_agent("mcp-atlas/0.1.0")
         .timeout(std::time::Duration::from_secs(30));
 
     if let Some(token) = token {
