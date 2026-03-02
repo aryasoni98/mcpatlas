@@ -1,13 +1,13 @@
 ---
-description: MCP protocol, tools, resources, and prompts for CNCF MCP server
-globs: crates/cncf-mcp-core/**/*.rs
+description: MCP protocol, tools, resources, and prompts for MCPAtlas server
+globs: crates/mcp-atlas-core/**/*.rs
 alwaysApply: false
 ---
 
-# CNCF MCP — Protocol and API
+# MCPAtlas — Protocol and API
 
 ## Tool handlers
-- Keep tool handlers in `crates/cncf-mcp-core/src/tools/`. One module per domain (search, compare, health, trends, recommend, graph).
+- Keep tool handlers in `crates/mcp-atlas-core/src/tools/`. One module per domain (search, compare, health, trends, recommend, graph).
 - All tool responses must be valid JSON-RPC 2.0. Return structured results; use the `_meta` field for pagination (offset, limit, total) where applicable.
 - Validate and sanitize all inputs (query length, allowed enums). Return structured error `data` in JSON-RPC tool errors.
 

@@ -1,9 +1,9 @@
 ---
 name: product-manager
-description: Align CNCF MCP work with roadmap, impact, and success metrics. Use when prioritizing features, defining scope, writing roadmap/ROADMAP.md, or discussing user value and CNCF Sandbox positioning.
+description: Align MCPAtlas work with roadmap, impact, and success metrics. Use when prioritizing features, defining scope, writing roadmap/ROADMAP.md, or discussing user value and CNCF Sandbox positioning.
 ---
 
-# Product Manager — CNCF MCP
+# Product Manager — MCPAtlas
 
 Apply product thinking: user impact, roadmap alignment, scope, and success metrics (BluePrint §11, DEEP_PLAN §1, §12–13).
 

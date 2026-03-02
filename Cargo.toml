@@ -1,20 +1,20 @@
 [workspace]
 resolver = "2"
 members = [
-    "crates/cncf-mcp-core",
-    "crates/cncf-mcp-data",
-    "crates/cncf-mcp-search",
-    "crates/cncf-mcp-graph",
-    "crates/cncf-mcp-vector",
-    "crates/cncf-mcp-plugins",
-    "crates/cncf-mcp-cli",
+    "crates/mcp-atlas-core",
+    "crates/mcp-atlas-data",
+    "crates/mcp-atlas-search",
+    "crates/mcp-atlas-graph",
+    "crates/mcp-atlas-vector",
+    "crates/mcp-atlas-plugins",
+    "crates/mcp-atlas-cli",
 ]
 
 [workspace.package]
 version = "0.1.0"
 edition = "2024"
 license = "Apache-2.0"
-repository = "https://github.com/cncf-mcp/server"
+repository = "https://github.com/mcp-atlas/mcp-atlas"
 rust-version = "1.85"
 
 [workspace.dependencies]
@@ -54,11 +54,11 @@ async-trait = "0.1"
 insta = { version = "1", features = ["yaml"] }
 
 # Workspace crates
-cncf-mcp-data = { path = "crates/cncf-mcp-data" }
-cncf-mcp-search = { path = "crates/cncf-mcp-search" }
-cncf-mcp-graph = { path = "crates/cncf-mcp-graph" }
-cncf-mcp-vector = { path = "crates/cncf-mcp-vector" }
-cncf-mcp-plugins = { path = "crates/cncf-mcp-plugins" }
+mcp-atlas-data = { path = "crates/mcp-atlas-data" }
+mcp-atlas-search = { path = "crates/mcp-atlas-search" }
+mcp-atlas-graph = { path = "crates/mcp-atlas-graph" }
+mcp-atlas-vector = { path = "crates/mcp-atlas-vector" }
+mcp-atlas-plugins = { path = "crates/mcp-atlas-plugins" }
 
 [profile.release]
 lto = true

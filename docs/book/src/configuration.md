@@ -5,7 +5,7 @@
 | Variable | Description |
 |----------|-------------|
 | `GITHUB_TOKEN` | Optional. Improves rate limits for GitHub enrichment (stars, language, etc.). |
-| `CNCF_MCP_CACHE_DIR` | Cache directory for landscape and enrichment data. Default: platform cache dir. |
+| `MCP_ATLAS_CACHE_DIR` | Cache directory for landscape and enrichment data. Default: platform cache dir. |
 
 ## Command-line options
 
@@ -22,7 +22,7 @@
 Landscape and enrichment data are cached locally. TTL is configurable (default 24h). Use the CLI to sync:
 
 ```bash
-cargo run -p cncf-mcp-cli -- sync
+cargo run -p mcp-atlas-cli -- sync
 ```
 
 ## Optional backends

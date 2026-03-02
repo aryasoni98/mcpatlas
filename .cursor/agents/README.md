@@ -1,4 +1,4 @@
-# CNCF MCP — Execution-Specialized Subagents
+# MCPAtlas — Execution-Specialized Subagents
 
 Project-level subagents aligned with **MCP_BLUEPRINT.md** and **DEEP_PLAN.md** for production hardening and CNCF Sandbox readiness. All agents are **project-only** (`.cursor/agents/`).
 

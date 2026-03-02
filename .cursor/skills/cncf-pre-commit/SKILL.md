@@ -1,9 +1,9 @@
 ---
 name: cncf-pre-commit
-description: Run CNCF MCP quality gates before commit: cargo fmt, clippy, tests, and conventional commit. Use when committing, saving changes, or before pushing in the CNCF MCP repo.
+description: Run MCPAtlas quality gates before commit: cargo fmt, clippy, tests, and conventional commit. Use when committing, saving changes, or before pushing in the MCPAtlas repo.
 ---
 
-# CNCF MCP Pre-Commit
+# MCPAtlas Pre-Commit
 
 Run quality gates and produce a conventional commit for this Rust workspace.
 

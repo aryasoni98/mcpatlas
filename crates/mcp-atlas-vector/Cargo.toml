@@ -1,0 +1,15 @@
+[package]
+name = "mcp-atlas-vector"
+description = "Qdrant vector backend for MCPAtlas semantic search (Phase 2)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mcp-atlas-data = { workspace = true }
+async-trait = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+qdrant-client = { version = "1.7", default-features = false }

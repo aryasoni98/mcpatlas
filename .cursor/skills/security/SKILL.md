@@ -1,9 +1,9 @@
 ---
 name: security
-description: Security and compliance for CNCF MCP: threat model, RBAC, audit, supply chain, input validation, plugin sandbox. Use when implementing auth, hardening, or reviewing security-sensitive code.
+description: Security and compliance for MCPAtlas: threat model, RBAC, audit, supply chain, input validation, plugin sandbox. Use when implementing auth, hardening, or reviewing security-sensitive code.
 ---
 
-# Security — CNCF MCP
+# Security — MCPAtlas
 
 Apply BluePrint §8 (Security & Compliance) and DEEP_PLAN §9.
 

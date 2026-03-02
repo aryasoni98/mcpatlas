@@ -47,5 +47,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HTTP transport: CORS, rate limiting, `/metrics`, streamable sessions, request cancellation
 - Multi-arch release binaries and container image (ghcr.io)
 
-[Unreleased]: https://github.com/cncf-mcp/server/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/cncf-mcp/server/releases/tag/v0.1.0
+[Unreleased]: https://github.com/mcp-atlas/mcp-atlas/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/mcp-atlas/mcp-atlas/releases/tag/v0.1.0

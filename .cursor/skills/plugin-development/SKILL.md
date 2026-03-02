@@ -1,9 +1,9 @@
 ---
 name: plugin-development
-description: WASM plugin system for CNCF MCP: Extism, manifest, host functions, sandbox. Use when implementing plugin host or writing plugin docs/SDK.
+description: WASM plugin system for MCPAtlas: Extism, manifest, host functions, sandbox. Use when implementing plugin host or writing plugin docs/SDK.
 ---
 
-# Plugin Development — CNCF MCP
+# Plugin Development — MCPAtlas
 
 Apply BluePrint §6 (WASM Plugin System) and DEEP_PLAN §7.
 
@@ -55,7 +55,7 @@ description = "..."
 ## Guest (plugin author)
 
 - Plugin implements: plugin_info, register_tools, handle_tool_call. Use Extism PDK (Rust, Go, JS, etc.). Compile to wasm32-wasi or target supported by host.
-- Document: how to build, how to run locally with cncf-mcp, manifest schema, available host functions and limits, security (no FS, network allowlist, CPU/memory caps).
+- Document: how to build, how to run locally with mcp-atlas, manifest schema, available host functions and limits, security (no FS, network allowlist, CPU/memory caps).
 
 ## References
 

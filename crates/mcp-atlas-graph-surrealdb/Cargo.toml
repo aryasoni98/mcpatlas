@@ -1,0 +1,18 @@
+[package]
+name = "mcp-atlas-graph-surrealdb"
+description = "SurrealDB backend for MCPAtlas knowledge graph (Blueprint §2b)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mcp-atlas-data = { workspace = true }
+async-trait = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+surrealdb = { version = "2", default-features = false, features = ["kv-mem"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt", "macros"] }

@@ -1,6 +1,6 @@
 # Plugin Development
 
-The CNCF MCP Server is designed to support **WASM plugins** (e.g. via [Extism](https://extism.org/)) so that contributors can add tools without changing the core. This is planned; the plugin host interface and manifest format are described in [MCP_BLUEPRINT.md](../../MCP_BLUEPRINT.md) §6.
+MCPAtlas is designed to support **WASM plugins** (e.g. via [Extism](https://extism.org/)) so that contributors can add tools without changing the core. This is planned; the plugin host interface and manifest format are described in [MCP_BLUEPRINT.md](../../MCP_BLUEPRINT.md) §6.
 
 ## Planned capabilities
 

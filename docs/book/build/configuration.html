@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Configuration - CNCF MCP Server</title>
+        <title>Configuration - MCPAtlas</title>
 
 
         <!-- Custom HTML head -->
@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d9f5a48a.js";
+            window.path_to_searchindex_js = "searchindex-8bd232d8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-c2fe03e1.js"></script>
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">CNCF MCP Server</h1>
+                    <h1 class="menu-title">MCPAtlas</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -183,7 +183,7 @@
 </thead>
 <tbody>
 <tr><td><code>GITHUB_TOKEN</code></td><td>Optional. Improves rate limits for GitHub enrichment (stars, language, etc.).</td></tr>
-<tr><td><code>CNCF_MCP_CACHE_DIR</code></td><td>Cache directory for landscape and enrichment data. Default: platform cache dir.</td></tr>
+<tr><td><code>MCP_ATLAS_CACHE_DIR</code></td><td>Cache directory for landscape and enrichment data. Default: platform cache dir.</td></tr>
 </tbody>
 </table>
 </div>
@@ -204,7 +204,7 @@
 </div>
 <h2 id="cache"><a class="header" href="#cache">Cache</a></h2>
 <p>Landscape and enrichment data are cached locally. TTL is configurable (default 24h). Use the CLI to sync:</p>
-<pre><code class="language-bash">cargo run -p cncf-mcp-cli -- sync
+<pre><code class="language-bash">cargo run -p mcp-atlas-cli -- sync
 </code></pre>
 <h2 id="optional-backends"><a class="header" href="#optional-backends">Optional backends</a></h2>
 <ul>

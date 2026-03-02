@@ -1,17 +1,17 @@
 # Contributing
 
-We welcome contributions. See the repository root [CONTRIBUTING.md](https://github.com/cncf-mcp/server/blob/main/CONTRIBUTING.md) for:
+We welcome contributions. See the repository root [CONTRIBUTING.md](https://github.com/mcp-atlas/mcp-atlas/blob/main/CONTRIBUTING.md) for:
 
 - Development setup (Rust, build, test)
 - Architecture overview (crates and responsibilities)
 - Quality gates (format, clippy, tests)
 - Pull request checklist and conventional commits
-- RFC process for architectural changes ([GOVERNANCE.md](https://github.com/cncf-mcp/server/blob/main/GOVERNANCE.md))
+- RFC process for architectural changes ([GOVERNANCE.md](https://github.com/mcp-atlas/mcp-atlas/blob/main/GOVERNANCE.md))
 
 Quick start:
 
 ```bash
-git clone https://github.com/cncf-mcp/server.git
+git clone https://github.com/mcp-atlas/mcp-atlas.git
 cd server
 cargo build
 cargo test --workspace

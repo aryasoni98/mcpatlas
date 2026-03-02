@@ -1,10 +1,10 @@
-# CNCF MCP Server — AI Coding Guidelines
+# MCPAtlas — AI Coding Guidelines
 
 ## Project Overview
-MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native projects as MCP tools/resources/prompts for AI assistants.
+MCPAtlas is an MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native projects as MCP tools/resources/prompts for AI assistants.
 
 ## Architecture
-- **Rust workspace** with 6 crates: `core`, `data`, `search`, `graph`, `plugins`, `cli`; optional `cncf-mcp-graph-surrealdb` when `--features graph-surrealdb`
+- **Rust workspace** with 6 crates: `core`, `data`, `search`, `graph`, `plugins`, `cli`; optional `mcp-atlas-graph-surrealdb` when `--features graph-surrealdb`
 - **Project site** (`site/`): Vite + React + Tailwind + Framer Motion landing with in-app docs at `/docs` (markdown in `site/src/content/docs/`); built with `npm ci && npm run build` in `site/`; deployed to GitHub Pages (`.github/workflows/pages.yml`) or Vercel (root `site`, `site/vercel.json`). For landing and release context see `docs/RELEASE_EXECUTION_REPORT.md` and `docs/FRONTEND_ARCHITECT_TASK.md`.
 - MCP protocol over STDIO (local), SSE/HTTP (remote), and Streamable HTTP (MCP 2025-03-26)
 - Tantivy for full-text search, serde for serialization
@@ -17,7 +17,7 @@ MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native projects as MCP t
 - Use `anyhow::Result` for application errors, `thiserror` for library error enums
 - Use `tracing` (not `log`) for all logging
 - All public types must derive `Debug, Clone, Serialize, Deserialize`
-- Keep tool handlers in `crates/cncf-mcp-core/src/tools/`
+- Keep tool handlers in `crates/mcp-atlas-core/src/tools/`
 - MCP responses follow JSON-RPC 2.0 format
 - Tests go next to the code they test (`#[cfg(test)] mod tests`)
 
@@ -77,13 +77,13 @@ MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native projects as MCP t
 ## Commands
 - `cargo build` — build all crates
 - `cargo test --workspace` — run all tests (89 total)
-- `cargo run -p cncf-mcp-core -- --transport stdio --skip-github --landscape-file data/landscape.yml` — run locally
-- `cargo run -p cncf-mcp-core -- --transport sse --port 3000` — run as HTTP server
-- `cargo run -p cncf-mcp-cli -- sync` — download fresh landscape data
-- `cargo run -p cncf-mcp-cli -- validate data/landscape.yml` — validate landscape file
+- `cargo run -p mcp-atlas-core -- --transport stdio --skip-github --landscape-file data/landscape.yml` — run locally
+- `cargo run -p mcp-atlas-core -- --transport sse --port 3000` — run as HTTP server
+- `cargo run -p mcp-atlas-cli -- sync` — download fresh landscape data
+- `cargo run -p mcp-atlas-cli -- validate data/landscape.yml` — validate landscape file
 - `cargo clippy --workspace` — lint
 - `cargo fmt --all` — format
-- `cargo bench -p cncf-mcp-search` — run search benchmarks
+- `cargo bench -p mcp-atlas-search` — run search benchmarks
 - **Site:** `cd site && npm ci && npm run build` — build landing; `./scripts/verify-release.sh` from repo root — verify site + docs build and combine
 
 ## STDIO Transport

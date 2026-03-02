@@ -1,9 +1,9 @@
 ---
 name: testing-qa
-description: Test strategy for CNCF MCP: unit, integration, e2e, benchmarks, fixtures. Use when adding tests or debugging failures.
+description: Test strategy for MCPAtlas: unit, integration, e2e, benchmarks, fixtures. Use when adding tests or debugging failures.
 ---
 
-# Testing & QA — CNCF MCP
+# Testing & QA — MCPAtlas
 
 Keep quality bar high without blocking local dev (BluePrint §9, DEEP_PLAN §10).
 
@@ -29,15 +29,15 @@ Keep quality bar high without blocking local dev (BluePrint §9, DEEP_PLAN §10)
 
 ## Benchmarks
 
-- **Search**: `cargo bench -p cncf-mcp-search`. Baseline for index build and query latency; guard against regressions in hot path.
+- **Search**: `cargo bench -p mcp-atlas-search`. Baseline for index build and query latency; guard against regressions in hot path.
 - **Load**: Optional k6/wrk scenario (e.g. 100 concurrent search, mixed tool calls). Run in CI on schedule or tag; fail on regression vs baseline.
 
 ## Commands
 
 ```bash
 cargo test --workspace
-cargo test -p cncf-mcp-core -- --test-threads=4
-cargo bench -p cncf-mcp-search
+cargo test -p mcp-atlas-core -- --test-threads=4
+cargo bench -p mcp-atlas-search
 ```
 
 - CI runs full workspace tests. Local: run tests for crates you changed; run bench after search/index changes.

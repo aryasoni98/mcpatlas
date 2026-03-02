@@ -4,7 +4,7 @@ globs: ".github/**/*","deploy/**/*"
 alwaysApply: false
 ---
 
-# CNCF MCP — Release and Deploy
+# MCPAtlas — Release and Deploy
 
 ## CI and release workflow
 - Release workflow must build multi-arch: x86_64-apple-darwin, aarch64-apple-darwin, x86_64-unknown-linux-gnu, aarch64-unknown-linux-gnu.
@@ -16,9 +16,9 @@ alwaysApply: false
 - v1.0: stable MCP tool interface; tools may be added but not removed; optional fields may be added to input schemas.
 
 ## Deployment artifacts
-- Helm chart under `deploy/helm/cncf-mcp/`: deployment, service, ingress, HPA, configmap, secret template, PDB, service account.
+- Helm chart under `deploy/helm/mcp-atlas/`: deployment, service, ingress, HPA, configmap, secret template, PDB, service account.
 - Docker: multi-stage build, minimal final image. Document `--graph-backend`, `--cache`, Redis, and env vars.
-- Homebrew formula: install `cncf-mcp` and `cncf-mcp-cli`; checksum and version from release.
+- Homebrew formula: install `mcp-atlas` and `mcp-atlas-cli`; checksum and version from release.
 
 ## Documentation and governance
 - Keep CONTRIBUTING.md, SECURITY.md, GOVERNANCE.md, and CODE_OF_CONDUCT.md aligned with CNCF and BluePrint. Use mdBook for docs site; build and deploy from CI.

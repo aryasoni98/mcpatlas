@@ -1,9 +1,9 @@
 ---
 name: mcp-expertise
-description: MCP protocol depth for CNCF MCP: tools, resources, prompts, JSON-RPC 2.0, transports, completion, cancellation. Use when adding or changing MCP surface, debugging client compatibility, or implementing spec behavior.
+description: MCP protocol depth for MCPAtlas: tools, resources, prompts, JSON-RPC 2.0, transports, completion, cancellation. Use when adding or changing MCP surface, debugging client compatibility, or implementing spec behavior.
 ---
 
-# MCP Expertise — CNCF MCP
+# MCP Expertise — MCPAtlas
 
 Apply Model Context Protocol knowledge for spec compliance and client compatibility (BluePrint §3, DEEP_PLAN §5–6).
 
@@ -21,7 +21,7 @@ Apply Model Context Protocol knowledge for spec compliance and client compatibil
 ## Tools
 
 - **Schema**: Each tool has `name`, `description`, `inputSchema` (JSON Schema). Handler receives `params`; returns JSON-serializable result or JSON-RPC error.
-- **Placement**: One module per domain under `crates/cncf-mcp-core/src/tools/`. Register all tools at server startup.
+- **Placement**: One module per domain under `crates/mcp-atlas-core/src/tools/`. Register all tools at server startup.
 - **Errors**: Use structured `data` in JSON-RPC error for tool-specific codes and hints. Validate inputs (length, enums, types) before calling backend.
 - **Pagination**: When returning lists, support `limit`/`offset` and include `_meta` (e.g. total, limit, offset) in result.
 

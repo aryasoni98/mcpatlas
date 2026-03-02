@@ -1,9 +1,9 @@
 ---
 name: devops
-description: CI/CD, Docker, Helm, Kubernetes, and observability for CNCF MCP. Use when editing workflows, Dockerfile, Helm charts, or adding metrics/traces.
+description: CI/CD, Docker, Helm, Kubernetes, and observability for MCPAtlas. Use when editing workflows, Dockerfile, Helm charts, or adding metrics/traces.
 ---
 
-# DevOps — CNCF MCP
+# DevOps — MCPAtlas
 
 Apply BluePrint §3–4 (phases, Helm, scaling) and DEEP_PLAN §10.
 
@@ -19,11 +19,11 @@ Apply BluePrint §3–4 (phases, Helm, scaling) and DEEP_PLAN §10.
 - Multi-stage: build stage (cargo build --release), minimal runtime stage (e.g. Chainguard or distroless). Copy only binary and needed assets.
 - No secrets in image. Env vars for config; document required (GITHUB_TOKEN, cache dir, backend URLs).
 - Labels: org.opencontainers.* for version, source, revision. Expose port (e.g. 3000 for SSE).
-- docker-compose for local/team: cncf-mcp, optional Redis, optional Qdrant/Meilisearch; reverse proxy if needed.
+- docker-compose for local/team: mcp-atlas, optional Redis, optional Qdrant/Meilisearch; reverse proxy if needed.
 
 ## Helm
 
-- Chart under deploy/helm/cncf-mcp. Templates: deployment, service, ingress, configmap, secret (template only), HPA, PDB, serviceaccount. Values: replicaCount, image, transport, port, rateLimit, cache backend/ttl, redis url, autoscaling min/max/target.
+- Chart under deploy/helm/mcp-atlas. Templates: deployment, service, ingress, configmap, secret (template only), HPA, PDB, serviceaccount. Values: replicaCount, image, transport, port, rateLimit, cache backend/ttl, redis url, autoscaling min/max/target.
 - Default values work for Tier 2 (single namespace, optional Redis). Document overrides for Tier 3 (external DBs, secrets from vault).
 - Do not store secrets in values; use existingSecret or external-secrets.
 

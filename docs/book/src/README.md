@@ -1,6 +1,6 @@
 # Introduction
 
-**CNCF MCP Server** is an [MCP](https://modelcontextprotocol.io/) (Model Context Protocol) server that exposes the [CNCF Landscape](https://landscape.cncf.io/) — 2,400+ cloud-native projects — as tools, resources, and prompts for AI assistants (Claude, Cursor, custom agents).
+**MCPAtlas** is an [MCP](https://modelcontextprotocol.io/) (Model Context Protocol) server that exposes the [CNCF Landscape](https://landscape.cncf.io/) — 2,400+ cloud-native projects — as tools, resources, and prompts for AI assistants (Claude, Cursor, custom agents).
 
 ## What you get
 

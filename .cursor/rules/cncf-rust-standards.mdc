@@ -1,10 +1,10 @@
 ---
-description: Rust coding standards and safety for CNCF MCP (product/enterprise grade)
+description: Rust coding standards and safety for MCPAtlas (product/enterprise grade)
 globs: crates/**/*.rs
 alwaysApply: false
 ---
 
-# CNCF MCP — Rust Standards
+# MCPAtlas — Rust Standards
 
 ## Error handling
 - Use `anyhow::Result` for application/binary code; use `thiserror` for library error enums.
@@ -26,7 +26,7 @@ alwaysApply: false
 
 ## Tests and benchmarks
 - Put tests next to the code: `#[cfg(test)] mod tests { ... }`.
-- Run `cargo test --workspace` and `cargo bench -p cncf-mcp-search` when touching search or hot paths.
+- Run `cargo test --workspace` and `cargo bench -p mcp-atlas-search` when touching search or hot paths.
 - For async tests use `#[tokio::test]` and the same runtime configuration as production where it matters.
 
 ## Concurrency and async

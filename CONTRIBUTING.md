@@ -11,7 +11,7 @@ Thank you for your interest in contributing. This document explains how to set u
 ## Development Setup
 
 ```bash
-git clone https://github.com/cncf-mcp/server.git
+git clone https://github.com/mcp-atlas/mcp-atlas.git
 cd server
 cargo build
 cargo test --workspace
@@ -19,24 +19,24 @@ cargo test --workspace
 
 ## Architecture Overview
 
-- **`crates/cncf-mcp-core`** — MCP server: transport (STDIO/SSE/Streamable HTTP), tool handlers, resources, prompts
-- **`crates/cncf-mcp-data`** — Data models, landscape YAML parsing, GitHub enrichment, cache, pipeline
-- **`crates/cncf-mcp-search`** — Tantivy full-text search index and query types
-- **`crates/cncf-mcp-graph`** — In-memory knowledge graph (alternatives, relationships, path finding)
-- **`crates/cncf-mcp-plugins`** — Plugin host interface (WASM/Extism planned)
-- **`crates/cncf-mcp-cli`** — CLI for sync, validate, and data operations
+- **`crates/mcp-atlas-core`** — MCP server: transport (STDIO/SSE/Streamable HTTP), tool handlers, resources, prompts
+- **`crates/mcp-atlas-data`** — Data models, landscape YAML parsing, GitHub enrichment, cache, pipeline
+- **`crates/mcp-atlas-search`** — Tantivy full-text search index and query types
+- **`crates/mcp-atlas-graph`** — In-memory knowledge graph (alternatives, relationships, path finding)
+- **`crates/mcp-atlas-plugins`** — Plugin host interface (WASM/Extism planned)
+- **`crates/mcp-atlas-cli`** — CLI for sync, validate, and data operations
 - **`site/`** — Landing site (Vite + React + Tailwind); see [site/README.md](site/README.md) for build and deploy.
 
-Tool handlers live in `crates/cncf-mcp-core/src/tools/`. MCP protocol routing is in `tools/mod.rs`.
+Tool handlers live in `crates/mcp-atlas-core/src/tools/`. MCP protocol routing is in `tools/mod.rs`.
 
 ## Running Locally
 
 ```bash
 # STDIO (e.g. for Claude Desktop) — skip GitHub for fast startup
-cargo run -p cncf-mcp -- --transport stdio --skip-github --landscape-file data/landscape.yml
+cargo run -p mcp-atlas -- --transport stdio --skip-github --landscape-file data/landscape.yml
 
 # HTTP SSE server
-cargo run -p cncf-mcp -- --transport sse --port 3000
+cargo run -p mcp-atlas -- --transport sse --port 3000
 ```
 
 ## Quality Gates (before submitting a PR)

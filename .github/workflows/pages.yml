@@ -4,10 +4,6 @@ name: Pages
 on:
   push:
     branches: [main]
-    paths:
-      - "site/**"
-      - "docs/book/**"
-      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -51,7 +47,8 @@ jobs:
       - name: Build site
         run: cd site && npm run build
         env:
-          VITE_BASE_PATH: /
+          # Project Pages are served at origin/repo-name/ (e.g. /MCPAtlas/)
+          VITE_BASE_PATH: /${{ github.event.repository.name }}/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

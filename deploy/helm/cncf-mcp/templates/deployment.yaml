@@ -33,13 +33,13 @@ spec:
             - "--transport"
             - {{ .Values.transport | quote }}
             - "--port"
-            - "{{ .Values.port }}"
+            - {{ .Values.port | default 3000 | quote }}
             - "--skip-github"
-            - "{{ .Values.skipGithub | quote }}"
+            - {{ .Values.skipGithub | quote }}
             - "--rate-limit"
-            - "{{ .Values.rateLimit | quote }}"
+            - {{ .Values.rateLimit | quote }}
             - "--max-cache-age"
-            - "{{ .Values.cache.maxAge | quote }}"
+            - {{ .Values.cache.maxAge | quote }}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

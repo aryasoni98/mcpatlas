@@ -1,12 +1,58 @@
-# cncf-mcp
+# MCPAtlas
 
 **MCP Server for the CNCF Landscape** — Query 2,400+ cloud-native projects from any AI assistant.
 
 An open-source [Model Context Protocol](https://modelcontextprotocol.io/) server that makes the entire [CNCF Landscape](https://landscape.cncf.io/) available to AI tools like Claude, Cursor, VS Code Copilot, and custom agents.
 
+## Architecture at a glance
+
+Data flows from the landscape into the MCP server; tools, resources, and prompts expose it to AI clients.
+
+```mermaid
+flowchart LR
+  subgraph sources[" "]
+    L[("CNCF Landscape")]
+    G[(GitHub API)]
+  end
+  subgraph server["mcp-atlas"]
+    C[core]
+    S[search]
+    K[graph]
+    C --- S
+    C --- K
+  end
+  subgraph clients[" "]
+    Claude[Claude]
+    Cursor[Cursor]
+    VSC[VS Code]
+    Custom[Custom agents]
+  end
+  L --> C
+  G -.-> C
+  C --> Claude & Cursor & VSC & Custom
+```
+
+How projects connect in the knowledge graph (alternatives, integrations, components):
+
+```mermaid
+flowchart TB
+  subgraph graph["Knowledge graph"]
+    K8s[Kubernetes]
+    Istio[Istio]
+    Linkerd[Linkerd]
+    Prom[Prometheus]
+    K8s --- Istio
+    K8s --- Linkerd
+    Istio --- Prom
+    Linkerd --- Prom
+  end
+  Tools["get_relationships\nfind_path\nsuggest_stack"]
+  graph <--> Tools
+```
+
 ## Features
 
-### MCP Tools (12)
+### MCP Tools (14)
 
 | Tool | Description |
 |------|-------------|
@@ -63,26 +109,26 @@ An open-source [Model Context Protocol](https://modelcontextprotocol.io/) server
 
 ```bash
 # Clone and build
-git clone https://github.com/cncf-mcp/server.git
-cd server
+git clone https://github.com/mcp-atlas/mcp-atlas.git
+cd mcp-atlas
 cargo build --release
 
 # Run with STDIO transport (for Claude Desktop / Claude Code)
-./target/release/cncf-mcp --transport stdio --skip-github
+./target/release/mcp-atlas --transport stdio --skip-github
 
 # Run with HTTP transport (for remote clients)
-./target/release/cncf-mcp --transport sse --port 3000
+./target/release/mcp-atlas --transport sse --port 3000
 
 # With GitHub enrichment (set token for higher rate limits)
 export GITHUB_TOKEN=ghp_...
-./target/release/cncf-mcp --transport stdio
+./target/release/mcp-atlas --transport stdio
 ```
 
 ### Docker
 
 ```bash
 # Quick run
-docker run -p 3000:3000 ghcr.io/cncf-mcp/server:latest
+docker run -p 3000:3000 ghcr.io/mcp-atlas/mcp-atlas:latest
 
 # With docker-compose (includes health checks and persistent cache)
 cd deploy/docker
@@ -93,22 +139,22 @@ docker compose up -d
 
 ```bash
 # Sync landscape data locally
-cargo run -p cncf-mcp-cli -- sync --skip-github
+cargo run -p mcp-atlas-cli -- sync --skip-github
 
 # Search projects
-cargo run -p cncf-mcp-cli -- search "service mesh" --data data/landscape.yml
+cargo run -p mcp-atlas-cli -- search "service mesh" --data data/landscape.yml
 
 # Inspect a project
-cargo run -p cncf-mcp-cli -- inspect Kubernetes --data data/landscape.yml
+cargo run -p mcp-atlas-cli -- inspect Kubernetes --data data/landscape.yml
 
 # Show statistics
-cargo run -p cncf-mcp-cli -- stats --data data/landscape.yml
+cargo run -p mcp-atlas-cli -- stats --data data/landscape.yml
 
 # Show project relationships
-cargo run -p cncf-mcp-cli -- graph Kubernetes --data data/landscape.yml
+cargo run -p mcp-atlas-cli -- graph Kubernetes --data data/landscape.yml
 
 # Validate landscape file
-cargo run -p cncf-mcp-cli -- validate data/landscape.yml
+cargo run -p mcp-atlas-cli -- validate data/landscape.yml
 ```
 
 ## Connect to AI Tools
@@ -121,7 +167,7 @@ Add to your MCP settings (`~/.claude/settings.json` or Claude Desktop config):
 {
   "mcpServers": {
     "cncf-landscape": {
-      "command": "cncf-mcp",
+      "command": "mcp-atlas",
       "args": ["--transport", "stdio", "--skip-github"]
     }
   }
@@ -171,21 +217,21 @@ curl -X POST http://localhost:3000/mcp/stream \
 | `--github-token` | `GITHUB_TOKEN` | | GitHub PAT for API enrichment |
 | `--landscape-file` | `CNCF_LANDSCAPE_FILE` | | Local landscape.yml path |
 | `--skip-github` | | `false` | Skip GitHub metrics enrichment |
-| `--cache-dir` | `CNCF_MCP_CACHE_DIR` | `~/.cache/cncf-mcp` | Cache directory |
+| `--cache-dir` | `MCP_ATLAS_CACHE_DIR` | `~/.cache/mcp-atlas` | Cache directory |
 | `--max-cache-age` | | `86400` | Cache TTL in seconds |
 | `--rate-limit` | | `50` | Max concurrent HTTP requests |
 
 ## Architecture
 
 ```
-cncf-mcp/
+mcp-atlas/
 ├── crates/
-│   ├── cncf-mcp-core/      # MCP server, tool handlers, transport
-│   ├── cncf-mcp-data/      # Data models, YAML parser, GitHub API, cache
-│   ├── cncf-mcp-search/    # Tantivy full-text search index + benchmarks
-│   ├── cncf-mcp-graph/     # Knowledge graph engine (relationship inference)
-│   ├── cncf-mcp-plugins/   # WASM plugin system (Phase 3)
-│   └── cncf-mcp-cli/       # CLI companion tool (9 commands)
+│   ├── mcp-atlas-core/      # MCP server, tool handlers, transport
+│   ├── mcp-atlas-data/      # Data models, YAML parser, GitHub API, cache
+│   ├── mcp-atlas-search/    # Tantivy full-text search index + benchmarks
+│   ├── mcp-atlas-graph/     # Knowledge graph engine (relationship inference)
+│   ├── mcp-atlas-plugins/   # WASM plugin system (Phase 3)
+│   └── mcp-atlas-cli/       # CLI companion tool (9 commands)
 ├── deploy/
 │   └── docker/              # Dockerfile + docker-compose.yml
 └── .github/workflows/       # CI + automated data sync
@@ -197,11 +243,11 @@ cncf-mcp/
 cargo test --workspace        # Run all 89 tests
 cargo clippy --workspace      # Lint
 cargo fmt --all               # Format
-cargo bench -p cncf-mcp-search # Run search benchmarks
+cargo bench -p mcp-atlas-search # Run search benchmarks
 
 # Dev run with local data
-cargo run -p cncf-mcp-cli -- sync --skip-github
-cargo run -p cncf-mcp-core -- --transport stdio --landscape-file data/landscape.yml --skip-github
+cargo run -p mcp-atlas-cli -- sync --skip-github
+cargo run -p mcp-atlas-core -- --transport stdio --landscape-file data/landscape.yml --skip-github
 ```
 
 ## Documentation
@@ -214,11 +260,11 @@ See also [CONTRIBUTING.md](CONTRIBUTING.md), [GOVERNANCE.md](GOVERNANCE.md), [SE
 
 ## Reporting usage
 
-If you use CNCF MCP in production or for significant non-production use, we’d love to hear from you:
+If you use MCPAtlas in production or for significant non-production use, we’d love to hear from you:
 
 - **Adopters:** Add your organization to [ADOPTERS.md](ADOPTERS.md) via a pull request (name + one-line use case).
 - **Metrics:** The server exposes Prometheus metrics at `GET /metrics` (request count, latency, tool usage). You can scrape this endpoint for your own dashboards; we do not collect usage data centrally.
-- **Feedback:** Open a [GitHub Discussion](https://github.com/cncf-mcp/server/discussions) for questions, ideas, or success stories.
+- **Feedback:** Open a [GitHub Discussion](https://github.com/mcp-atlas/mcp-atlas/discussions) for questions, ideas, or success stories.
 
 ## License
 

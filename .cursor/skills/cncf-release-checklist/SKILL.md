@@ -1,9 +1,9 @@
 ---
 name: cncf-release-checklist
-description: Execute or verify the CNCF MCP release checklist: multi-arch build, container image, signing, SBOM, Homebrew. Use when cutting a release, publishing binaries, or updating release workflow.
+description: Execute or verify the MCPAtlas release checklist: multi-arch build, container image, signing, SBOM, Homebrew. Use when cutting a release, publishing binaries, or updating release workflow.
 ---
 
-# CNCF MCP Release Checklist
+# MCPAtlas Release Checklist
 
 Follow BluePrint.md Phase 1 and DEEP_PLAN for release and supply-chain steps.
 

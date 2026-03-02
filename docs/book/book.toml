@@ -1,10 +1,10 @@
-# mdBook config for CNCF MCP Server (Blueprint §3 Phase 1).
+# mdBook config for MCPAtlas (Blueprint §3 Phase 1).
 # Build: mdbook build docs/book
 # Serve: mdbook serve docs/book
 
 [book]
-title = "CNCF MCP Server"
-authors = ["CNCF MCP Contributors"]
+title = "MCPAtlas"
+authors = ["MCPAtlas Contributors"]
 language = "en"
 src = "src"
 

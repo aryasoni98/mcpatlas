@@ -4,17 +4,17 @@ This directory contains the Homebrew formula for CNCF MCP Server.
 
 ## Using the formula
 
-1. **After a release:** Download the tarball for your platform from [Releases](https://github.com/cncf-mcp/server/releases) (e.g. `cncf-mcp-0.1.0-aarch64-apple-darwin.tar.gz`).
+1. **After a release:** Download the tarball for your platform from [Releases](https://github.com/mcp-atlas/server/releases) (e.g. `mcp-atlas-0.1.0-aarch64-apple-darwin.tar.gz`).
 2. **Install from local formula:**  
-   Update the `url` and `sha256` in `cncf-mcp.rb` to match the release, then:
+   Update the `url` and `sha256` in `mcp-atlas.rb` to match the release, then:
    ```bash
-   brew install ./deploy/homebrew/cncf-mcp.rb
+   brew install ./deploy/homebrew/mcp-atlas.rb
    ```
 3. **Tap (when available):**  
-   If we publish a tap (e.g. `cncf-mcp/tap`), you will be able to run:
+   If we publish a tap (e.g. `mcp-atlas/tap`), you will be able to run:
    ```bash
-   brew tap cncf-mcp/tap
-   brew install cncf-mcp
+   brew tap mcp-atlas/tap
+   brew install mcp-atlas
    ```
 
 ## Updating the formula for a new release

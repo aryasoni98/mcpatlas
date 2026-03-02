@@ -1,0 +1,16 @@
+MCPAtlas has been installed.
+
+1. Get the application URL (if ingress is enabled):
+{{- if .Values.ingress.enabled }}
+  {{- range $host := .Values.ingress.hosts }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ (index $host.paths 0).path }}
+  {{- end }}
+{{- else }}
+  kubectl port-forward svc/{{ include "mcp-atlas.fullname" . }} {{ .Values.port }}:{{ .Values.port }}
+  Then open http://localhost:{{ .Values.port }}/health
+{{- end }}
+
+2. MCP SSE endpoint (for Cursor/VS Code):
+   http://<host>:{{ .Values.port }}/sse
+
+3. Docs: https://github.com/mcp-atlas/mcp-atlas

@@ -66,9 +66,9 @@ jobs:
         with:
           version: "v3.16.0"
       - name: Lint chart
-        run: helm lint deploy/helm/cncf-mcp
+        run: helm lint deploy/helm/mcp-atlas
       - name: Template chart
-        run: helm template cncf-mcp deploy/helm/cncf-mcp
+        run: helm template mcp-atlas deploy/helm/mcp-atlas
 
   build:
     name: Build
@@ -85,8 +85,8 @@ jobs:
       - name: Upload binary
         uses: actions/upload-artifact@v4
         with:
-          name: cncf-mcp
-          path: target/release/cncf-mcp
+          name: mcp-atlas
+          path: target/release/mcp-atlas
 
   site:
     name: Site (build)

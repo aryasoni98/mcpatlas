@@ -9,3 +9,7 @@ Cargo.lock
 *.log
 data/landscape.yml
 data/enrichments/
+
+# Planning docs (local/workspace)
+MCP_BLUEPRINT.md
+DEEP_PLAN.md

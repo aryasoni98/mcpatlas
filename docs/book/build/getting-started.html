@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Getting Started - CNCF MCP Server</title>
+        <title>Getting Started - MCPAtlas</title>
 
 
         <!-- Custom HTML head -->
@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d9f5a48a.js";
+            window.path_to_searchindex_js = "searchindex-8bd232d8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-c2fe03e1.js"></script>
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">CNCF MCP Server</h1>
+                    <h1 class="menu-title">MCPAtlas</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -182,29 +182,29 @@
 </ul>
 <h2 id="install"><a class="header" href="#install">Install</a></h2>
 <h3 id="from-source"><a class="header" href="#from-source">From source</a></h3>
-<pre><code class="language-bash">git clone https://github.com/cncf-mcp/server.git
-cd server
+<pre><code class="language-bash">git clone https://github.com/mcp-atlas/mcp-atlas.git
+cd mcp-atlas
 cargo build --release
 </code></pre>
 <p>Binaries:</p>
 <ul>
-<li><code>target/release/cncf-mcp</code> — MCP server</li>
-<li><code>target/release/cncf-mcp-cli</code> — CLI for sync and validation</li>
+<li><code>target/release/mcp-atlas</code> — MCP server</li>
+<li><code>target/release/mcp-atlas-cli</code> — CLI for sync and validation</li>
 </ul>
 <h3 id="docker"><a class="header" href="#docker">Docker</a></h3>
-<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/cncf-mcp/server:latest
+<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/mcp-atlas/mcp-atlas:latest
 </code></pre>
 <h3 id="homebrew"><a class="header" href="#homebrew">Homebrew</a></h3>
 <p>When a tap is available:</p>
-<pre><code class="language-bash">brew install cncf-mcp/tap/cncf-mcp
+<pre><code class="language-bash">brew install mcp-atlas/tap/mcp-atlas
 </code></pre>
 <h2 id="run-the-server"><a class="header" href="#run-the-server">Run the server</a></h2>
 <h3 id="stdio-local-clients-eg-claude-desktop"><a class="header" href="#stdio-local-clients-eg-claude-desktop">STDIO (local clients, e.g. Claude Desktop)</a></h3>
-<pre><code class="language-bash">./target/release/cncf-mcp --transport stdio --skip-github
+<pre><code class="language-bash">./target/release/mcp-atlas --transport stdio --skip-github
 </code></pre>
 <p>Use <code>--skip-github</code> for a fast start without GitHub API calls. Add <code>GITHUB_TOKEN</code> and omit <code>--skip-github</code> for full enrichment.</p>
 <h3 id="http-remote-clients-eg-cursor-vs-code"><a class="header" href="#http-remote-clients-eg-cursor-vs-code">HTTP (remote clients, e.g. Cursor, VS Code)</a></h3>
-<pre><code class="language-bash">./target/release/cncf-mcp --transport sse --port 3000
+<pre><code class="language-bash">./target/release/mcp-atlas --transport sse --port 3000
 </code></pre>
 <p>Point your MCP client at <code>http://localhost:3000/sse</code> (or your deployment URL).</p>
 <h2 id="configure-your-mcp-client"><a class="header" href="#configure-your-mcp-client">Configure your MCP client</a></h2>
@@ -213,7 +213,7 @@ cargo build --release
 <pre><code class="language-json">{
   "mcpServers": {
     "cncf": {
-      "command": "/path/to/cncf-mcp",
+      "command": "/path/to/mcp-atlas",
       "args": ["--transport", "stdio", "--skip-github"]
     }
   }

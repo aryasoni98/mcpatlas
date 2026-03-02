@@ -1,9 +1,9 @@
 ---
 name: cncf-rfc-and-governance
-description: When and how to write RFCs, update GOVERNANCE, CONTRIBUTING, SECURITY for CNCF MCP. Use when making architectural decisions, adding governance docs, or preparing for CNCF Sandbox.
+description: When and how to write RFCs, update GOVERNANCE, CONTRIBUTING, SECURITY for MCPAtlas. Use when making architectural decisions, adding governance docs, or preparing for CNCF Sandbox.
 ---
 
-# CNCF MCP RFC and Governance
+# MCPAtlas RFC and Governance
 
 Use when changing architecture, adding major features, or updating project governance (BluePrint §10, DEEP_PLAN §11).
 

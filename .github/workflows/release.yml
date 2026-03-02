@@ -35,15 +35,15 @@ jobs:
           key: release-${{ matrix.target }}
 
       - name: Build release binary
-        run: cargo build --release --target ${{ matrix.target }} -p cncf-mcp -p cncf-mcp-cli
+        run: cargo build --release --target ${{ matrix.target }} -p mcp-atlas-core -p mcp-atlas-cli
 
       - name: Upload Linux binary
         uses: actions/upload-artifact@v4
         with:
-          name: cncf-mcp-${{ matrix.target }}
+          name: mcp-atlas-${{ matrix.target }}
           path: |
-            target/${{ matrix.target }}/release/cncf-mcp
-            target/${{ matrix.target }}/release/cncf-mcp-cli
+            target/${{ matrix.target }}/release/mcp-atlas
+            target/${{ matrix.target }}/release/mcp-atlas-cli
 
   build-binaries-macos:
     name: Build binaries (macOS)
@@ -66,15 +66,15 @@ jobs:
           key: release-${{ matrix.target }}
 
       - name: Build release binary
-        run: cargo build --release --target ${{ matrix.target }} -p cncf-mcp -p cncf-mcp-cli
+        run: cargo build --release --target ${{ matrix.target }} -p mcp-atlas-core -p mcp-atlas-cli
 
       - name: Upload macOS binary
         uses: actions/upload-artifact@v4
         with:
-          name: cncf-mcp-${{ matrix.target }}
+          name: mcp-atlas-${{ matrix.target }}
           path: |
-            target/${{ matrix.target }}/release/cncf-mcp
-            target/${{ matrix.target }}/release/cncf-mcp-cli
+            target/${{ matrix.target }}/release/mcp-atlas
+            target/${{ matrix.target }}/release/mcp-atlas-cli
 
   build-container:
     name: Build and push container
@@ -169,11 +169,11 @@ jobs:
         run: |
           VERSION="${GITHUB_REF#refs/tags/v}"
           mkdir -p release-assets
-          for dir in artifacts/cncf-mcp-*; do
+          for dir in artifacts/mcp-atlas-*; do
             if [ -d "$dir" ]; then
-              platform=$(basename "$dir" | sed 's/cncf-mcp-//')
-              (cd "$dir" && zip -r "../../release-assets/cncf-mcp-${VERSION}-${platform}.zip" .)
-              (cd "$dir" && tar czf "../../release-assets/cncf-mcp-${VERSION}-${platform}.tar.gz" .)
+              platform=$(basename "$dir" | sed 's/mcp-atlas-//')
+              (cd "$dir" && zip -r "../../release-assets/mcp-atlas-${VERSION}-${platform}.zip" .)
+              (cd "$dir" && tar czf "../../release-assets/mcp-atlas-${VERSION}-${platform}.tar.gz" .)
             fi
           done
           ls -la release-assets/

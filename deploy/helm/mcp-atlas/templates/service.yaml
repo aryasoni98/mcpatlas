@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mcp-atlas.fullname" . }}
+  labels:
+    {{- include "mcp-atlas.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "mcp-atlas.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

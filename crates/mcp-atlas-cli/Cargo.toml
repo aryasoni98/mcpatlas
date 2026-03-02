@@ -1,0 +1,22 @@
+[package]
+name = "mcp-atlas-cli"
+description = "CLI companion tool for MCPAtlas Server management"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "mcp-atlas-cli"
+path = "src/main.rs"
+
+[dependencies]
+mcp-atlas-data = { workspace = true }
+mcp-atlas-search = { workspace = true }
+mcp-atlas-graph = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+clap = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }

@@ -1,9 +1,9 @@
 ---
 name: solution-architect
-description: System design and tradeoffs for CNCF MCP: storage backends, deployment tiers, scalability, security layers. Use when designing features, choosing technologies, or reviewing architecture.
+description: System design and tradeoffs for MCPAtlas: storage backends, deployment tiers, scalability, security layers. Use when designing features, choosing technologies, or reviewing architecture.
 ---
 
-# Solution Architect — CNCF MCP
+# Solution Architect — MCPAtlas
 
 Apply system-design thinking per BluePrint §2 and DEEP_PLAN §2, §8, §9.
 
@@ -19,7 +19,7 @@ Apply system-design thinking per BluePrint §2 and DEEP_PLAN §2, §8, §9.
 | Tier   | Use case        | Components                                      | Memory / startup   |
 |--------|------------------|--------------------------------------------------|--------------------|
 | **Tier 1** | Local dev        | Single binary, embedded Tantivy + graph, in-memory cache | ~100MB, &lt;500ms |
-| **Tier 2** | Team server      | Docker Compose: cncf-mcp replicas, Redis, optional Meilisearch/Qdrant, reverse proxy | — |
+| **Tier 2** | Team server      | Docker Compose: mcp-atlas replicas, Redis, optional Meilisearch/Qdrant, reverse proxy | — |
 | **Tier 3** | Cloud / K8s      | Deployment + HPA, Redis/SurrealDB/Qdrant, CronJob pipeline, Ingress, Operator | Scale 3–50 pods |
 
 Choose defaults and flags (e.g. `--graph-backend mem|surreal`) so Tier 1 works out of the box; Tier 2/3 opt in to external backends.

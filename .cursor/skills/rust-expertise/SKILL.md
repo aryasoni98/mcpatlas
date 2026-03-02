@@ -1,9 +1,9 @@
 ---
 name: rust-expertise
-description: Deep Rust patterns for CNCF MCP: async/tokio, error handling, serde, performance, testing. Use when implementing or reviewing Rust code, optimizing hot paths, or debugging concurrency.
+description: Deep Rust patterns for MCPAtlas: async/tokio, error handling, serde, performance, testing. Use when implementing or reviewing Rust code, optimizing hot paths, or debugging concurrency.
 ---
 
-# Rust Expertise — CNCF MCP
+# Rust Expertise — MCPAtlas
 
 Apply Rust best practices for a long-lived, high-concurrency MCP server (DEEP_PLAN §3, BluePrint §9).
 
@@ -28,7 +28,7 @@ Apply Rust best practices for a long-lived, high-concurrency MCP server (DEEP_PL
 
 - **Tantivy**: Prefer mmap persistent index when supported; avoid full rebuild every startup. Tune writer heap; use FAST field for exact lookups; boost name over description.
 - **Hot paths**: Pre-compute health scores in pipeline; cache search results (e.g. LRU 128 entries); lazy graph build on first access.
-- **Profiling**: `cargo flamegraph` for CPU; `cargo instruments` (macOS) for allocations. Use `cargo bench -p cncf-mcp-search` for search changes.
+- **Profiling**: `cargo flamegraph` for CPU; `cargo instruments` (macOS) for allocations. Use `cargo bench -p mcp-atlas-search` for search changes.
 - **Binary size**: LTO, strip, static linking. Target &lt;15MB.
 
 ## Testing

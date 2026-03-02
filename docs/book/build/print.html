@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>CNCF MCP Server</title>
+        <title>MCPAtlas</title>
         <meta name="robots" content="noindex">
 
 
@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d9f5a48a.js";
+            window.path_to_searchindex_js = "searchindex-8bd232d8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-c2fe03e1.js"></script>
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">CNCF MCP Server</h1>
+                    <h1 class="menu-title">MCPAtlas</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -176,7 +176,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p><strong>CNCF MCP Server</strong> is an <a href="https://modelcontextprotocol.io/">MCP</a> (Model Context Protocol) server that exposes the <a href="https://landscape.cncf.io/">CNCF Landscape</a> — 2,400+ cloud-native projects — as tools, resources, and prompts for AI assistants (Claude, Cursor, custom agents).</p>
+<p><strong>MCPAtlas</strong> is an <a href="https://modelcontextprotocol.io/">MCP</a> (Model Context Protocol) server that exposes the <a href="https://landscape.cncf.io/">CNCF Landscape</a> — 2,400+ cloud-native projects — as tools, resources, and prompts for AI assistants (Claude, Cursor, custom agents).</p>
 <h2 id="what-you-get"><a class="header" href="#what-you-get">What you get</a></h2>
 <ul>
 <li><strong>Tools</strong> — Search projects, compare, get health scores, find alternatives, suggest stacks, analyze trends, graph relationships, migration paths, and more.</li>
@@ -203,29 +203,29 @@
 </ul>
 <h2 id="install"><a class="header" href="#install">Install</a></h2>
 <h3 id="from-source"><a class="header" href="#from-source">From source</a></h3>
-<pre><code class="language-bash">git clone https://github.com/cncf-mcp/server.git
-cd server
+<pre><code class="language-bash">git clone https://github.com/mcp-atlas/mcp-atlas.git
+cd mcp-atlas
 cargo build --release
 </code></pre>
 <p>Binaries:</p>
 <ul>
-<li><code>target/release/cncf-mcp</code> — MCP server</li>
-<li><code>target/release/cncf-mcp-cli</code> — CLI for sync and validation</li>
+<li><code>target/release/mcp-atlas</code> — MCP server</li>
+<li><code>target/release/mcp-atlas-cli</code> — CLI for sync and validation</li>
 </ul>
 <h3 id="docker"><a class="header" href="#docker">Docker</a></h3>
-<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/cncf-mcp/server:latest
+<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/mcp-atlas/mcp-atlas:latest
 </code></pre>
 <h3 id="homebrew"><a class="header" href="#homebrew">Homebrew</a></h3>
 <p>When a tap is available:</p>
-<pre><code class="language-bash">brew install cncf-mcp/tap/cncf-mcp
+<pre><code class="language-bash">brew install mcp-atlas/tap/mcp-atlas
 </code></pre>
 <h2 id="run-the-server"><a class="header" href="#run-the-server">Run the server</a></h2>
 <h3 id="stdio-local-clients-eg-claude-desktop"><a class="header" href="#stdio-local-clients-eg-claude-desktop">STDIO (local clients, e.g. Claude Desktop)</a></h3>
-<pre><code class="language-bash">./target/release/cncf-mcp --transport stdio --skip-github
+<pre><code class="language-bash">./target/release/mcp-atlas --transport stdio --skip-github
 </code></pre>
 <p>Use <code>--skip-github</code> for a fast start without GitHub API calls. Add <code>GITHUB_TOKEN</code> and omit <code>--skip-github</code> for full enrichment.</p>
 <h3 id="http-remote-clients-eg-cursor-vs-code"><a class="header" href="#http-remote-clients-eg-cursor-vs-code">HTTP (remote clients, e.g. Cursor, VS Code)</a></h3>
-<pre><code class="language-bash">./target/release/cncf-mcp --transport sse --port 3000
+<pre><code class="language-bash">./target/release/mcp-atlas --transport sse --port 3000
 </code></pre>
 <p>Point your MCP client at <code>http://localhost:3000/sse</code> (or your deployment URL).</p>
 <h2 id="configure-your-mcp-client"><a class="header" href="#configure-your-mcp-client">Configure your MCP client</a></h2>
@@ -234,7 +234,7 @@ cargo build --release
 <pre><code class="language-json">{
   "mcpServers": {
     "cncf": {
-      "command": "/path/to/cncf-mcp",
+      "command": "/path/to/mcp-atlas",
       "args": ["--transport", "stdio", "--skip-github"]
     }
   }
@@ -257,7 +257,7 @@ cargo build --release
 </thead>
 <tbody>
 <tr><td><code>GITHUB_TOKEN</code></td><td>Optional. Improves rate limits for GitHub enrichment (stars, language, etc.).</td></tr>
-<tr><td><code>CNCF_MCP_CACHE_DIR</code></td><td>Cache directory for landscape and enrichment data. Default: platform cache dir.</td></tr>
+<tr><td><code>MCP_ATLAS_CACHE_DIR</code></td><td>Cache directory for landscape and enrichment data. Default: platform cache dir.</td></tr>
 </tbody>
 </table>
 </div>
@@ -278,7 +278,7 @@ cargo build --release
 </div>
 <h2 id="cache"><a class="header" href="#cache">Cache</a></h2>
 <p>Landscape and enrichment data are cached locally. TTL is configurable (default 24h). Use the CLI to sync:</p>
-<pre><code class="language-bash">cargo run -p cncf-mcp-cli -- sync
+<pre><code class="language-bash">cargo run -p mcp-atlas-cli -- sync
 </code></pre>
 <h2 id="optional-backends"><a class="header" href="#optional-backends">Optional backends</a></h2>
 <ul>
@@ -311,7 +311,7 @@ cargo build --release
 </tbody>
 </table>
 </div>
-<p>Tool inputs and outputs follow the MCP tool schema. Use your client’s tool introspection or see the server source in <code>crates/cncf-mcp-core/src/tools/</code>.</p>
+<p>Tool inputs and outputs follow the MCP tool schema. Use your client’s tool introspection or see the server source in <code>crates/mcp-atlas-core/src/tools/</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="resources-reference"><a class="header" href="#resources-reference">Resources Reference</a></h1>
 <p>The server exposes resources under the <code>cncf://</code> URI scheme.</p>
@@ -333,23 +333,23 @@ cargo build --release
 <h1 id="deployment"><a class="header" href="#deployment">Deployment</a></h1>
 <h2 id="docker-1"><a class="header" href="#docker-1">Docker</a></h2>
 <p>Use the official image:</p>
-<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/cncf-mcp/server:latest
+<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/mcp-atlas/mcp-atlas:latest
 </code></pre>
 <p>For production, set <code>GITHUB_TOKEN</code> via secrets and consider <code>--rate-limit</code> and <code>--skip-github</code> depending on your startup and scaling needs.</p>
 <h2 id="kubernetes--helm"><a class="header" href="#kubernetes--helm">Kubernetes / Helm</a></h2>
-<p>A Helm chart is provided under <code>deploy/helm/cncf-mcp/</code>. Key values:</p>
+<p>A Helm chart is provided under <code>deploy/helm/mcp-atlas/</code>. Key values:</p>
 <ul>
 <li><code>replicaCount</code> — Number of server replicas.</li>
 <li><code>transport</code>, <code>port</code> — SSE transport and port.</li>
 <li><code>cache.backend</code> — <code>file</code> or <code>redis</code> when Redis is enabled.</li>
 <li><code>autoscaling.enabled</code> — HPA for CPU-based scaling.</li>
 </ul>
-<p>See <code>deploy/helm/cncf-mcp/values.yaml</code> and the repository root <a href="https://github.com/cncf-mcp/server/blob/main/MCP_BLUEPRINT.md">MCP_BLUEPRINT.md</a> for full options.</p>
+<p>See <code>deploy/helm/mcp-atlas/values.yaml</code> and the repository root <a href="https://github.com/mcp-atlas/mcp-atlas/blob/main/MCP_BLUEPRINT.md">MCP_BLUEPRINT.md</a> for full options.</p>
 <h2 id="github-pages--site"><a class="header" href="#github-pages--site">GitHub Pages / Site</a></h2>
 <p>The project also has a Vite-based landing site in <code>site/</code> with in-app docs. Build with <code>cd site &amp;&amp; npm ci &amp;&amp; npm run build</code>. The Pages workflow deploys from <code>site/dist</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="plugin-development"><a class="header" href="#plugin-development">Plugin Development</a></h1>
-<p>The CNCF MCP Server is designed to support <strong>WASM plugins</strong> (e.g. via <a href="https://extism.org/">Extism</a>) so that contributors can add tools without changing the core. This is planned; the plugin host interface and manifest format are described in <a href="../../MCP_BLUEPRINT.html">MCP_BLUEPRINT.md</a> §6.</p>
+<p>MCPAtlas is designed to support <strong>WASM plugins</strong> (e.g. via <a href="https://extism.org/">Extism</a>) so that contributors can add tools without changing the core. This is planned; the plugin host interface and manifest format are described in <a href="../../MCP_BLUEPRINT.html">MCP_BLUEPRINT.md</a> §6.</p>
 <h2 id="planned-capabilities"><a class="header" href="#planned-capabilities">Planned capabilities</a></h2>
 <ul>
 <li><strong>Plugin manifest</strong> (TOML) — name, version, WASM path, permissions (network allowlist, memory/CPU limits).</li>
@@ -359,16 +359,16 @@ cargo build --release
 <p>When the plugin system is released, SDK and examples will be documented here and in the main repository. See the repo root <strong>MCP_BLUEPRINT.md</strong> §6 for the full design.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
-<p>We welcome contributions. See the repository root <a href="https://github.com/cncf-mcp/server/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for:</p>
+<p>We welcome contributions. See the repository root <a href="https://github.com/mcp-atlas/mcp-atlas/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for:</p>
 <ul>
 <li>Development setup (Rust, build, test)</li>
 <li>Architecture overview (crates and responsibilities)</li>
 <li>Quality gates (format, clippy, tests)</li>
 <li>Pull request checklist and conventional commits</li>
-<li>RFC process for architectural changes (<a href="https://github.com/cncf-mcp/server/blob/main/GOVERNANCE.md">GOVERNANCE.md</a>)</li>
+<li>RFC process for architectural changes (<a href="https://github.com/mcp-atlas/mcp-atlas/blob/main/GOVERNANCE.md">GOVERNANCE.md</a>)</li>
 </ul>
 <p>Quick start:</p>
-<pre><code class="language-bash">git clone https://github.com/cncf-mcp/server.git
+<pre><code class="language-bash">git clone https://github.com/mcp-atlas/mcp-atlas.git
 cd server
 cargo build
 cargo test --workspace

@@ -1,9 +1,9 @@
 ---
 name: cncf-storage-and-architecture
-description: Apply trait-based storage and service patterns for CNCF MCP: GraphBackend, CacheBackend, VectorBackend. Use when adding persistence, graph, search backends, or refactoring data layer.
+description: Apply trait-based storage and service patterns for MCPAtlas: GraphBackend, CacheBackend, VectorBackend. Use when adding persistence, graph, search backends, or refactoring data layer.
 ---
 
-# CNCF MCP Storage and Architecture
+# MCPAtlas Storage and Architecture
 
 Follow BluePrint §2 (Final Target Architecture) and §2a–2e for storage and data layer.
 

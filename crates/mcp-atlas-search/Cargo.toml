@@ -1,0 +1,23 @@
+[package]
+name = "mcp-atlas-search"
+description = "Full-text and semantic search indexing for CNCF projects"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+mcp-atlas-data = { workspace = true }
+tantivy = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+
+[[bench]]
+name = "search_bench"
+harness = false

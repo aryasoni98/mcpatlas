@@ -1,9 +1,9 @@
 ---
 name: technical-writer
-description: Documentation structure and style for CNCF MCP: in-app docs (site/src/content/docs/), CONTRIBUTING, SECURITY, GOVERNANCE, API and plugin docs. Use when writing or reorganizing docs.
+description: Documentation structure and style for MCPAtlas: in-app docs (site/src/content/docs/), CONTRIBUTING, SECURITY, GOVERNANCE, API and plugin docs. Use when writing or reorganizing docs.
 ---
 
-# Technical Writer — CNCF MCP
+# Technical Writer — MCPAtlas
 
 Align docs with BluePrint §3 (Phase 1 docs site), §10 (CNCF Sandbox files), DEEP_PLAN §10.
 

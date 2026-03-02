@@ -1,0 +1,47 @@
+[package]
+name = "mcp-atlas-core"
+description = "CNCF Landscape MCP Server — core server and tool handlers"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = []
+graph-surrealdb = ["dep:mcp-atlas-graph-surrealdb"]
+vector-qdrant = ["dep:mcp-atlas-vector"]
+
+[lib]
+name = "mcp_atlas_core"
+path = "src/lib.rs"
+
+[[bin]]
+name = "mcp-atlas"
+path = "src/main.rs"
+
+[dependencies]
+mcp-atlas-data = { workspace = true }
+mcp-atlas-search = { workspace = true }
+mcp-atlas-graph = { workspace = true }
+mcp-atlas-graph-surrealdb = { path = "../mcp-atlas-graph-surrealdb", optional = true }
+mcp-atlas-vector = { path = "../mcp-atlas-vector", optional = true }
+mcp-atlas-plugins = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+axum = { workspace = true }
+clap = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+tokio-stream = "0.1"
+tower = { version = "0.5", features = ["util", "limit"] }
+tower-http = { workspace = true }
+uuid = { workspace = true }
+tokio-util = { workspace = true }
+sha2 = "0.10"
+
+[dev-dependencies]
+insta = { workspace = true }
+http-body-util = "0.1"
+hyper = "1"

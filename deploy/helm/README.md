@@ -13,11 +13,11 @@ From the repo root:
 
 ```bash
 # Install with default values (single replica, no ingress)
-helm install cncf-mcp ./deploy/helm/cncf-mcp
+helm install mcp-atlas ./deploy/helm/mcp-atlas
 
 # Or with custom image and replicas
-helm install cncf-mcp ./deploy/helm/cncf-mcp \
-  --set image.repository=ghcr.io/your-org/cncf-mcp-server \
+helm install mcp-atlas ./deploy/helm/mcp-atlas \
+  --set image.repository=ghcr.io/your-org/mcp-atlas-server \
   --set image.tag=v0.1.0 \
   --set replicaCount=2
 ```
@@ -27,7 +27,7 @@ helm install cncf-mcp ./deploy/helm/cncf-mcp \
 | Value | Default | Description |
 |-------|---------|-------------|
 | `replicaCount` | 1 | Number of server replicas |
-| `image.repository` | ghcr.io/cncf-mcp/server | Container image |
+| `image.repository` | ghcr.io/mcp-atlas/server | Container image |
 | `image.tag` | latest | Image tag |
 | `transport` | sse | MCP transport (sse) |
 | `port` | 3000 | HTTP port |
@@ -42,25 +42,25 @@ helm install cncf-mcp ./deploy/helm/cncf-mcp \
 **Enable Ingress (e.g. for Cursor/IDE):**
 
 ```bash
-helm upgrade --install cncf-mcp ./deploy/helm/cncf-mcp \
+helm upgrade --install mcp-atlas ./deploy/helm/mcp-atlas \
   --set ingress.enabled=true \
-  --set ingress.hosts[0].host=cncf-mcp.example.com
+  --set ingress.hosts[0].host=mcp-atlas.example.com
 ```
 
 **GitHub token from secret:**
 
 ```bash
-kubectl create secret generic cncf-mcp-github --from-literal=token=ghp_xxx
-helm upgrade --install cncf-mcp ./deploy/helm/cncf-mcp \
+kubectl create secret generic mcp-atlas-github --from-literal=token=ghp_xxx
+helm upgrade --install mcp-atlas ./deploy/helm/mcp-atlas \
   --set github.enabled=true \
-  --set github.secretName=cncf-mcp-github \
+  --set github.secretName=mcp-atlas-github \
   --set skipGithub=false
 ```
 
 **Enable HPA and PDB:**
 
 ```bash
-helm upgrade --install cncf-mcp ./deploy/helm/cncf-mcp \
+helm upgrade --install mcp-atlas ./deploy/helm/mcp-atlas \
   --set autoscaling.enabled=true \
   --set autoscaling.minReplicas=2 \
   --set autoscaling.maxReplicas=10 \
@@ -78,7 +78,7 @@ helm upgrade --install cncf-mcp ./deploy/helm/cncf-mcp \
 The chart includes `values.schema.json` for Helm 3 value validation. Install with schema check:
 
 ```bash
-helm install cncf-mcp ./deploy/helm/cncf-mcp --validate
+helm install mcp-atlas ./deploy/helm/mcp-atlas --validate
 ```
 
 **Security defaults:** The deployment sets `runAsNonRoot: true`, `allowPrivilegeEscalation: false`, drops all capabilities, and uses `RuntimeDefault` seccomp. The container image runs as a non-root user; the cache volume at `/app/cache` is writable.
@@ -88,6 +88,6 @@ helm install cncf-mcp ./deploy/helm/cncf-mcp --validate
 ## Lint / template
 
 ```bash
-helm lint deploy/helm/cncf-mcp
-helm template cncf-mcp deploy/helm/cncf-mcp
+helm lint deploy/helm/mcp-atlas
+helm template mcp-atlas deploy/helm/mcp-atlas
 ```

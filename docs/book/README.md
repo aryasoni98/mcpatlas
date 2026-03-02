@@ -1,4 +1,4 @@
-# CNCF MCP Server — mdBook
+# MCPAtlas — mdBook
 
 This directory contains the [mdBook](https://rust-lang.github.io/mdBook/) source for the project documentation (Blueprint §3 Phase 1). When the site is deployed via GitHub Pages, the book is available at **`/book`** (e.g. `https://<org>.github.io/<repo>/book/`).
 

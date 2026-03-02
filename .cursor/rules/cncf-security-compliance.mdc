@@ -1,9 +1,9 @@
 ---
-description: Security and compliance for CNCF MCP (secrets, validation, audit, supply chain)
+description: Security and compliance for MCPAtlas (secrets, validation, audit, supply chain)
 alwaysApply: true
 ---
 
-# CNCF MCP — Security and Compliance
+# MCPAtlas — Security and Compliance
 
 ## Secrets and configuration
 - Never commit `.env` files, API keys, or tokens. Use environment variables or external secret stores (e.g. K8s sealed secrets).

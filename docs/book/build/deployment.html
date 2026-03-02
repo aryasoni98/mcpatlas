@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Deployment - CNCF MCP Server</title>
+        <title>Deployment - MCPAtlas</title>
 
 
         <!-- Custom HTML head -->
@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-d9f5a48a.js";
+            window.path_to_searchindex_js = "searchindex-8bd232d8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-c2fe03e1.js"></script>
@@ -137,7 +137,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">CNCF MCP Server</h1>
+                    <h1 class="menu-title">MCPAtlas</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -177,18 +177,18 @@
                         <h1 id="deployment"><a class="header" href="#deployment">Deployment</a></h1>
 <h2 id="docker"><a class="header" href="#docker">Docker</a></h2>
 <p>Use the official image:</p>
-<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/cncf-mcp/server:latest
+<pre><code class="language-bash">docker run -p 3000:3000 ghcr.io/mcp-atlas/mcp-atlas:latest
 </code></pre>
 <p>For production, set <code>GITHUB_TOKEN</code> via secrets and consider <code>--rate-limit</code> and <code>--skip-github</code> depending on your startup and scaling needs.</p>
 <h2 id="kubernetes--helm"><a class="header" href="#kubernetes--helm">Kubernetes / Helm</a></h2>
-<p>A Helm chart is provided under <code>deploy/helm/cncf-mcp/</code>. Key values:</p>
+<p>A Helm chart is provided under <code>deploy/helm/mcp-atlas/</code>. Key values:</p>
 <ul>
 <li><code>replicaCount</code> — Number of server replicas.</li>
 <li><code>transport</code>, <code>port</code> — SSE transport and port.</li>
 <li><code>cache.backend</code> — <code>file</code> or <code>redis</code> when Redis is enabled.</li>
 <li><code>autoscaling.enabled</code> — HPA for CPU-based scaling.</li>
 </ul>
-<p>See <code>deploy/helm/cncf-mcp/values.yaml</code> and the repository root <a href="https://github.com/cncf-mcp/server/blob/main/MCP_BLUEPRINT.md">MCP_BLUEPRINT.md</a> for full options.</p>
+<p>See <code>deploy/helm/mcp-atlas/values.yaml</code> and the repository root <a href="https://github.com/mcp-atlas/mcp-atlas/blob/main/MCP_BLUEPRINT.md">MCP_BLUEPRINT.md</a> for full options.</p>
 <h2 id="github-pages--site"><a class="header" href="#github-pages--site">GitHub Pages / Site</a></h2>
 <p>The project also has a Vite-based landing site in <code>site/</code> with in-app docs. Build with <code>cd site &amp;&amp; npm ci &amp;&amp; npm run build</code>. The Pages workflow deploys from <code>site/dist</code>.</p>
 
