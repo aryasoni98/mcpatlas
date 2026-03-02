@@ -39,6 +39,7 @@ export const DOC_TITLES: Record<string, string> = {
   deployment: "Deployment",
   workflow: "Workflow (CI/CD & release)",
   "plugin-development": "Plugin development",
+  "vercel-web-analytics": "Vercel Web Analytics",
   roadmap: "Roadmap",
   contributing: "Contributing",
 };
@@ -76,6 +77,7 @@ export const DOC_NAV: DocNavGroup[] = [
       { slug: "architecture", label: "Architecture" },
       { slug: "deployment", label: "Deployment" },
       { slug: "workflow", label: "Workflow (CI/CD & release)" },
+      { slug: "vercel-web-analytics", label: "Vercel Web Analytics" },
     ],
   },
   {
