@@ -1,0 +1,29 @@
+---
+description: When to use productivity skills for product/enterprise-level work
+alwaysApply: true
+---
+
+# CNCF MCP — Productivity Skills
+
+Use these behaviors to keep work product- and enterprise-ready:
+
+## Before committing
+- Run **smart-commit** (or equivalent): quality gates (cargo fmt, clippy, test), scan staged changes for debug code and secrets, then create a conventional commit. Types: feat, fix, refactor, docs, chore, ci, perf, test. Never `git add -A`; stage specific files.
+
+## Ending a session
+- Run **wrap-up**: audit changes, run lint/test, capture learnings, write a one-paragraph summary and next-steps. If tests fail or there are uncommitted changes, flag them before ending.
+
+## Handoffs and continuity
+- Use **session-handoff** when pausing work: document current progress, open tasks, key decisions, and what’s needed to resume so the next session (or another contributor) can continue quickly.
+
+## Before large or risky changes
+- Use **replay-learnings**: surface past corrections and lessons for the current task to avoid repeating mistakes.
+- For architectural or process changes, consider **learn-rule** to record a persistent rule so future sessions follow the same pattern.
+
+## Parallel work and exploration
+- Use **parallel-worktrees** when blocked (e.g. on CI or review) or when exploring multiple approaches; keep main branch stable.
+
+## Code quality before merge
+- Use **deslop** on the branch diff to remove unnecessary comments, over-engineering, and AI boilerplate before final review or merge.
+
+Reference BluePrint.md and DEEP_PLAN.md for phase goals, architecture, and 90-day roadmap when planning work.

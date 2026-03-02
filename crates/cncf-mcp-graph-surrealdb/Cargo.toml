@@ -1,0 +1,18 @@
+[package]
+name = "cncf-mcp-graph-surrealdb"
+description = "SurrealDB backend for CNCF MCP knowledge graph (Blueprint §2b)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+cncf-mcp-data = { workspace = true }
+async-trait = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+surrealdb = { version = "2", default-features = false, features = ["kv-mem"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt", "macros"] }

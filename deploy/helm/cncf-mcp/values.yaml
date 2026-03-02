@@ -1,0 +1,67 @@
+# Default values for cncf-mcp (Blueprint §4b).
+# Deploy CNCF MCP Server for the CNCF Landscape.
+
+nameOverride: ""
+fullnameOverride: ""
+
+replicaCount: 1
+
+image:
+  repository: ghcr.io/cncf-mcp/server
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Server runs in SSE mode on port 3000
+transport: sse
+port: 3000
+rateLimit: 50
+
+# Skip GitHub enrichment at startup (faster startup, less metadata)
+skipGithub: true
+
+# Cache: in-cluster use emptyDir or PVC; maxAge in seconds
+cache:
+  maxAge: 86400
+
+# Optional: GitHub token for enrichment (create secret and reference here)
+github:
+  enabled: false
+  # secretName: cncf-mcp-github
+  # secretKey: token
+
+# Optional: Ingress for external access
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: cncf-mcp.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+# Optional: Horizontal Pod Autoscaler
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 60
+
+# Optional: Pod Disruption Budget
+pdb:
+  enabled: false
+  minAvailable: 1
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+serviceAccount:
+  create: true
+  automount: true
+  # name: ""  # use existing SA when create: false

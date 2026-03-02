@@ -1,0 +1,56 @@
+name: Data Sync
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  sync:
+    name: Sync CNCF Landscape Data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Build CLI
+        run: cargo build --release -p cncf-mcp-cli
+
+      - name: Sync landscape data
+        run: |
+          ./target/release/cncf-mcp-cli sync --output data/landscape.yml --skip-github
+
+      - name: Validate synced data
+        run: |
+          ./target/release/cncf-mcp-cli validate data/landscape.yml
+
+      - name: Upload landscape data
+        uses: actions/upload-artifact@v4
+        with:
+          name: landscape-data
+          path: data/landscape.yml
+          retention-days: 30
+
+      - name: Check for data changes
+        id: changes
+        run: |
+          git diff --quiet data/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Create data update PR
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          title: "chore: update CNCF landscape data"
+          body: |
+            Automated daily sync of CNCF landscape data.
+
+            This PR was created automatically by the data-sync workflow.
+          branch: data-sync/auto-update
+          commit-message: "chore: update CNCF landscape data"
+          labels: data-sync, automated

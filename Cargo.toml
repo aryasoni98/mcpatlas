@@ -1,0 +1,67 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/cncf-mcp-core",
+    "crates/cncf-mcp-data",
+    "crates/cncf-mcp-search",
+    "crates/cncf-mcp-graph",
+    "crates/cncf-mcp-vector",
+    "crates/cncf-mcp-plugins",
+    "crates/cncf-mcp-cli",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+repository = "https://github.com/cncf-mcp/server"
+rust-version = "1.85"
+
+[workspace.dependencies]
+# Async runtime
+tokio = { version = "1", features = ["full"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+
+# HTTP
+axum = "0.8"
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+
+# Search
+tantivy = "0.22"
+
+# Error handling
+anyhow = "1"
+thiserror = "2"
+
+# Logging & telemetry
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json", "registry"] }
+
+# CLI
+clap = { version = "4", features = ["derive", "env"] }
+
+# Utilities
+uuid = { version = "1", features = ["v4"] }
+tokio-util = "0.7"
+async-trait = "0.1"
+
+# Testing
+insta = { version = "1", features = ["yaml"] }
+
+# Workspace crates
+cncf-mcp-data = { path = "crates/cncf-mcp-data" }
+cncf-mcp-search = { path = "crates/cncf-mcp-search" }
+cncf-mcp-graph = { path = "crates/cncf-mcp-graph" }
+cncf-mcp-vector = { path = "crates/cncf-mcp-vector" }
+cncf-mcp-plugins = { path = "crates/cncf-mcp-plugins" }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"

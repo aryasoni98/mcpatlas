@@ -1,0 +1,16 @@
+apiVersion: v2
+name: cncf-mcp
+description: CNCF MCP Server - MCP server for the CNCF Landscape (2,400+ projects)
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - cncf
+  - mcp
+  - model-context-protocol
+  - landscape
+home: https://github.com/cncf-mcp/server
+sources:
+  - https://github.com/cncf-mcp/server
+maintainers: []
+kubeVersion: ">=1.21-0"

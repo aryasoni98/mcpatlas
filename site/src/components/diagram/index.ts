@@ -1,0 +1,1 @@
+export { KnowledgeGraphMesh } from "./KnowledgeGraphMesh";

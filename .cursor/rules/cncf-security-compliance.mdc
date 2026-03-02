@@ -1,0 +1,24 @@
+---
+description: Security and compliance for CNCF MCP (secrets, validation, audit, supply chain)
+alwaysApply: true
+---
+
+# CNCF MCP — Security and Compliance
+
+## Secrets and configuration
+- Never commit `.env` files, API keys, or tokens. Use environment variables or external secret stores (e.g. K8s sealed secrets).
+- Do not log API keys, GitHub tokens, or full request parameters. Log hashes or redacted identifiers only.
+- For deployment, use secret references (e.g. `tokenSecretRef`) rather than inline secrets.
+
+## Input validation and safety
+- Validate and bound all MCP inputs: query length (e.g. 1KB max), allowed enums, and schema types.
+- Sanitize search and graph inputs to prevent injection. Use parameterized queries and avoid user-controlled format strings.
+- Enforce request size limits (e.g. 1MB max payload) and timeouts (e.g. 30s) for tool calls.
+
+## Audit and observability
+- Emit structured audit events for tool calls (tool name, params_hash, status, latency_ms). No PII in logs.
+- Use OpenTelemetry for traces/metrics where available. Keep audit logs machine-parseable (e.g. JSON to stderr or OTLP).
+
+## Supply chain and CI
+- Do not introduce `unsafe` in core. Use `cargo-deny` and `cargo-audit` in CI; address advisories.
+- For releases: sign binaries and containers (e.g. cosign), generate SBOM (e.g. SPDX), and document SLSA/provenance steps in release workflow.

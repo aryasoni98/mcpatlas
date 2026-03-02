@@ -1,0 +1,15 @@
+[package]
+name = "cncf-mcp-graph"
+description = "Knowledge graph for CNCF project relationships"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+cncf-mcp-data = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+async-trait = { workspace = true }

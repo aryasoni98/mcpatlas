@@ -1,0 +1,26 @@
+# cargo-deny configuration for dependency auditing (see MCP_BLUEPRINT.md §8).
+# https://embarkstudios.github.io/cargo-deny/
+
+[advisories]
+db-path = "~/.cargo/advisory-db"
+db-urls = ["https://github.com/rustsec/advisory-db"]
+version = 2
+ignore = []
+
+[bans]
+multiple-versions = "warn"
+wildcards = "allow"
+highlight = "all"
+
+[licenses]
+unlicensed = "warn"
+allow = ["Apache-2.0", "MIT", "BSD-2-Clause", "BSD-3-Clause"]
+deny = []
+copyleft = "warn"
+allow-osi-fsf-free = "both"
+default = "warn"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]

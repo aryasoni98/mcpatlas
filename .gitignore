@@ -1,0 +1,11 @@
+/target
+/book
+site/dist
+Cargo.lock
+*.swp
+*.swo
+.DS_Store
+.env
+*.log
+data/landscape.yml
+data/enrichments/

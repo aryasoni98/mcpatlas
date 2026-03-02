@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cncf-mcp.fullname" . }}
+  labels:
+    {{- include "cncf-mcp.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "cncf-mcp.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

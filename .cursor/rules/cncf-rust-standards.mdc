@@ -1,0 +1,34 @@
+---
+description: Rust coding standards and safety for CNCF MCP (product/enterprise grade)
+globs: crates/**/*.rs
+alwaysApply: false
+---
+
+# CNCF MCP — Rust Standards
+
+## Error handling
+- Use `anyhow::Result` for application/binary code; use `thiserror` for library error enums.
+- Never use `unwrap()` in non-test code — use `?` or `.context("...")` from anyhow.
+- Propagate with `.context()` so failures are debuggable in production.
+
+## Logging and observability
+- Use `tracing` (not `log`) for all logging. Use `tracing::instrument` on async functions where useful.
+- Log at appropriate levels: `error` for failures, `warn` for recoverable issues, `info` for key events, `debug`/`trace` for diagnostics.
+
+## Types and serialization
+- All public types must derive `Debug, Clone, Serialize, Deserialize` unless there is a clear reason not to.
+- Prefer `#[serde(alias = "...")]` when parsing YAML/JSON with different field names (e.g. `project:` → `maturity`).
+
+## Safety and dependencies
+- Do not add `unsafe` code. CI enforces zero unsafe in core.
+- Do not add dependencies without justification; prefer std and existing workspace crates.
+- Run `cargo clippy --workspace` and `cargo fmt --all` before committing.
+
+## Tests and benchmarks
+- Put tests next to the code: `#[cfg(test)] mod tests { ... }`.
+- Run `cargo test --workspace` and `cargo bench -p cncf-mcp-search` when touching search or hot paths.
+- For async tests use `#[tokio::test]` and the same runtime configuration as production where it matters.
+
+## Concurrency and async
+- Use the existing Tokio runtime; for new binaries consider `--workers` and `flavor = "multi_thread"` vs `current_thread` per DEEP_PLAN.
+- Prefer `Arc<AppState>` (or trait-backed state) for shared server state; avoid locking in hot paths.

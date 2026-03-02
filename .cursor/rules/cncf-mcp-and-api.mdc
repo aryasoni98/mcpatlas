@@ -1,0 +1,26 @@
+---
+description: MCP protocol, tools, resources, and prompts for CNCF MCP server
+globs: crates/cncf-mcp-core/**/*.rs
+alwaysApply: false
+---
+
+# CNCF MCP — Protocol and API
+
+## Tool handlers
+- Keep tool handlers in `crates/cncf-mcp-core/src/tools/`. One module per domain (search, compare, health, trends, recommend, graph).
+- All tool responses must be valid JSON-RPC 2.0. Return structured results; use the `_meta` field for pagination (offset, limit, total) where applicable.
+- Validate and sanitize all inputs (query length, allowed enums). Return structured error `data` in JSON-RPC tool errors.
+
+## Resources and prompts
+- Resource URIs follow `cncf://` scheme: `cncf://landscape/overview`, `cncf://projects/{name}`, `cncf://categories/{category}`.
+- Prompt templates live in prompts; arguments must be documented and validated.
+- When adding tools/resources/prompts, update the MCP server registration and any schema or docs that list them.
+
+## Protocol compliance
+- Do not change the MCP wire format without updating the spec version. Return `protocolVersion` in `initialize` to match the client’s requested version (e.g. 2024-11-05 vs 2025-03-26).
+- Support JSON-RPC batch requests; handle `notifications/cancelled` and track in-flight requests when the transport allows cancellation.
+- STDIO uses Content-Length framing; logs go to stderr, JSON-RPC only to stdout.
+
+## Search and pagination
+- Search tools must support `limit` and `offset` and return `_meta` with total/count when applicable.
+- Wire all declared filter parameters (e.g. `min_stars`, `language`) into the search implementation; do not leave them no-op.
