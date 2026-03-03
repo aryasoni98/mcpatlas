@@ -22,10 +22,11 @@ export function Solution() {
         >
           <Heading as="h2">One server, full landscape</Heading>
           <Text className="mt-4 text-base leading-[1.6]" muted>
-            MCPAtlas exposes the entire landscape over the Model Context
-            Protocol: search, get project details, compare, find alternatives,
-            health scores, stack suggestions, trends, and a knowledge graph. Use
-            it from Claude, Cursor, VS Code, or any MCP client — STDIO, SSE, or
+            MCPAtlas exposes the entire CNCF landscape over the Model Context
+            Protocol — 15 tools including issue context for AI-assisted
+            contribution, project search, comparison, health scores, stack
+            recommendations, migration guides, and a knowledge graph. Use it
+            from Claude, Cursor, VS Code, or any MCP client — STDIO, SSE, or
             Streamable HTTP.
           </Text>
         </motion.div>

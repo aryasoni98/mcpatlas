@@ -276,23 +276,49 @@ pub fn compute_edges(projects: &[Project]) -> Vec<ProjectEdge> {
 
 /// Curated list of known CNCF project integrations.
 ///
-/// Format: (from, to, relation, confidence)
+/// Format: (from, to, relation, confidence).
+/// Names must match the `Project.name` field from the landscape YAML.
 fn curated_edges() -> Vec<(&'static str, &'static str, Relation, f64)> {
     vec![
-        // Kubernetes ecosystem
-        ("Helm", "Kubernetes", Relation::Extends, 0.95),
-        ("Argo", "Kubernetes", Relation::Extends, 0.95),
-        ("Flux", "Kubernetes", Relation::Extends, 0.95),
+        // ── Kubernetes core components ──────────────────────────────
         ("etcd", "Kubernetes", Relation::ComponentOf, 0.99),
         ("CoreDNS", "Kubernetes", Relation::ComponentOf, 0.95),
         ("containerd", "Kubernetes", Relation::ComponentOf, 0.90),
         ("CRI-O", "Kubernetes", Relation::ComponentOf, 0.85),
-        // Observability stack
+        // ── Kubernetes extensions ───────────────────────────────────
+        ("Helm", "Kubernetes", Relation::Extends, 0.95),
+        ("Argo", "Kubernetes", Relation::Extends, 0.95),
+        ("Flux", "Kubernetes", Relation::Extends, 0.95),
+        ("Knative", "Kubernetes", Relation::Extends, 0.95),
+        ("KubeVirt", "Kubernetes", Relation::Extends, 0.90),
+        ("KubeEdge", "Kubernetes", Relation::Extends, 0.90),
+        ("KEDA", "Kubernetes", Relation::Extends, 0.90),
+        ("Crossplane", "Kubernetes", Relation::Extends, 0.90),
+        ("Operator Framework", "Kubernetes", Relation::Extends, 0.90),
+        ("Virtual Kubelet", "Kubernetes", Relation::Extends, 0.85),
+        ("Volcano", "Kubernetes", Relation::Extends, 0.85),
+        ("Tekton", "Kubernetes", Relation::Extends, 0.90),
+        ("cert-manager", "Kubernetes", Relation::Extends, 0.90),
+        ("external-secrets", "Kubernetes", Relation::Extends, 0.85),
+        ("Longhorn", "Kubernetes", Relation::Extends, 0.85),
+        ("MetalLB", "Kubernetes", Relation::Extends, 0.85),
+        ("Dapr", "Kubernetes", Relation::Extends, 0.85),
+        ("OpenKruise", "Kubernetes", Relation::Extends, 0.85),
+        ("Kured", "Kubernetes", Relation::Extends, 0.80),
+        ("Litmus", "Kubernetes", Relation::Extends, 0.80),
+        ("Chaos Mesh", "Kubernetes", Relation::Extends, 0.80),
+        ("KubeVela", "Kubernetes", Relation::Extends, 0.85),
+        ("Backstage", "Kubernetes", Relation::IntegratesWith, 0.80),
+        ("Kubeflow", "Kubernetes", Relation::Extends, 0.90),
+        ("k3s", "Kubernetes", Relation::Extends, 0.90),
+        ("OpenYurt", "Kubernetes", Relation::Extends, 0.85),
+        // ── Observability stack ─────────────────────────────────────
         ("Prometheus", "Grafana", Relation::IntegratesWith, 0.95),
         ("Prometheus", "Thanos", Relation::IntegratesWith, 0.90),
         ("Prometheus", "Cortex", Relation::IntegratesWith, 0.85),
-        ("Jaeger", "OpenTelemetry", Relation::IntegratesWith, 0.90),
-        ("Fluentd", "Prometheus", Relation::IntegratesWith, 0.70),
+        ("Thanos", "Prometheus", Relation::Extends, 0.95),
+        ("Cortex", "Prometheus", Relation::Extends, 0.90),
+        ("OpenMetrics", "Prometheus", Relation::Extends, 0.90),
         (
             "OpenTelemetry",
             "Prometheus",
@@ -300,27 +326,149 @@ fn curated_edges() -> Vec<(&'static str, &'static str, Relation, f64)> {
             0.85,
         ),
         ("OpenTelemetry", "Jaeger", Relation::IntegratesWith, 0.85),
-        // Service mesh
+        ("OpenTelemetry", "Grafana", Relation::IntegratesWith, 0.80),
+        ("Jaeger", "OpenTelemetry", Relation::IntegratesWith, 0.90),
+        ("Fluentd", "Prometheus", Relation::IntegratesWith, 0.70),
+        ("Fluentd", "OpenTelemetry", Relation::IntegratesWith, 0.75),
+        ("Pixie", "Kubernetes", Relation::IntegratesWith, 0.85),
+        ("Pixie", "OpenTelemetry", Relation::IntegratesWith, 0.75),
+        ("Keptn", "Prometheus", Relation::IntegratesWith, 0.80),
+        ("Keptn", "Kubernetes", Relation::Extends, 0.85),
+        ("Trickster", "Prometheus", Relation::IntegratesWith, 0.85),
+        ("Perses", "Prometheus", Relation::IntegratesWith, 0.90),
+        ("OpenCost", "Prometheus", Relation::IntegratesWith, 0.80),
+        ("OpenCost", "Kubernetes", Relation::IntegratesWith, 0.85),
+        (
+            "Inspektor Gadget",
+            "Kubernetes",
+            Relation::IntegratesWith,
+            0.85,
+        ),
+        // ── Service mesh ────────────────────────────────────────────
         ("Envoy", "Istio", Relation::ComponentOf, 0.95),
         ("Envoy", "Linkerd", Relation::IntegratesWith, 0.60),
-        // Networking
-        ("CNI", "Cilium", Relation::IntegratesWith, 0.80),
-        ("CNI", "Calico", Relation::IntegratesWith, 0.80),
-        // Security
+        ("Linkerd", "Kubernetes", Relation::Extends, 0.95),
+        ("Istio", "Kubernetes", Relation::Extends, 0.95),
+        ("Kuma", "Envoy", Relation::IntegratesWith, 0.90),
+        ("Kuma", "Kubernetes", Relation::Extends, 0.85),
+        ("Cilium", "Kubernetes", Relation::Extends, 0.90),
+        ("Cilium", "Envoy", Relation::IntegratesWith, 0.75),
         (
-            "Open Policy Agent",
+            "Network Service Mesh",
+            "Kubernetes",
+            Relation::Extends,
+            0.80,
+        ),
+        ("Meshery", "Istio", Relation::IntegratesWith, 0.80),
+        ("Meshery", "Linkerd", Relation::IntegratesWith, 0.80),
+        ("Meshery", "Kuma", Relation::IntegratesWith, 0.75),
+        ("Aeraki Mesh", "Istio", Relation::Extends, 0.80),
+        // ── Networking & ingress ────────────────────────────────────
+        (
+            "Container Network Interface (CNI)",
+            "Cilium",
+            Relation::IntegratesWith,
+            0.80,
+        ),
+        (
+            "Container Network Interface (CNI)",
+            "Antrea",
+            Relation::IntegratesWith,
+            0.80,
+        ),
+        ("Contour", "Envoy", Relation::IntegratesWith, 0.90),
+        ("Contour", "Kubernetes", Relation::Extends, 0.85),
+        ("Emissary-Ingress", "Envoy", Relation::IntegratesWith, 0.90),
+        ("Emissary-Ingress", "Kubernetes", Relation::Extends, 0.85),
+        ("Antrea", "Kubernetes", Relation::Extends, 0.85),
+        ("Kube-OVN", "Kubernetes", Relation::Extends, 0.80),
+        ("Submariner", "Kubernetes", Relation::Extends, 0.85),
+        ("k8gb", "Kubernetes", Relation::Extends, 0.80),
+        ("Kgateway", "Envoy", Relation::IntegratesWith, 0.85),
+        ("Kgateway", "Kubernetes", Relation::Extends, 0.85),
+        // ── Storage ─────────────────────────────────────────────────
+        ("Rook", "Kubernetes", Relation::Extends, 0.85),
+        ("OpenEBS", "Kubernetes", Relation::Extends, 0.85),
+        ("CubeFS", "Kubernetes", Relation::IntegratesWith, 0.80),
+        ("Piraeus Datastore", "Kubernetes", Relation::Extends, 0.80),
+        ("Vitess", "Kubernetes", Relation::IntegratesWith, 0.80),
+        ("TiKV", "Kubernetes", Relation::IntegratesWith, 0.75),
+        // ── Security & policy ───────────────────────────────────────
+        (
+            "Open Policy Agent (OPA)",
             "Kubernetes",
             Relation::IntegratesWith,
             0.85,
         ),
         ("Falco", "Kubernetes", Relation::IntegratesWith, 0.85),
         ("SPIFFE", "SPIRE", Relation::IntegratesWith, 0.95),
-        // Storage
-        ("Rook", "Ceph", Relation::IntegratesWith, 0.90),
-        ("Rook", "Kubernetes", Relation::Extends, 0.85),
-        // CI/CD
-        ("Tekton", "Kubernetes", Relation::Extends, 0.90),
+        ("Kyverno", "Kubernetes", Relation::Extends, 0.90),
+        ("Kubewarden", "Kubernetes", Relation::Extends, 0.85),
+        ("KubeArmor", "Kubernetes", Relation::Extends, 0.85),
+        ("Kubescape", "Kubernetes", Relation::IntegratesWith, 0.85),
+        ("Keycloak", "Kubernetes", Relation::IntegratesWith, 0.75),
+        ("Notary Project", "Harbor", Relation::IntegratesWith, 0.85),
+        (
+            "in-toto",
+            "The Update Framework (TUF)",
+            Relation::IntegratesWith,
+            0.90,
+        ),
+        ("Falco", "OpenTelemetry", Relation::IntegratesWith, 0.70),
+        ("cert-manager", "SPIFFE", Relation::IntegratesWith, 0.70),
+        ("OpenFGA", "Keycloak", Relation::IntegratesWith, 0.70),
+        ("Ratify", "Notary Project", Relation::IntegratesWith, 0.85),
+        ("Copa", "Kubernetes", Relation::IntegratesWith, 0.75),
+        // ── CI/CD & GitOps ──────────────────────────────────────────
+        ("Argo", "Helm", Relation::IntegratesWith, 0.85),
         ("Argo", "Flux", Relation::IntegratesWith, 0.50),
+        ("Flux", "Helm", Relation::IntegratesWith, 0.85),
+        ("Shipwright", "Tekton", Relation::IntegratesWith, 0.85),
+        ("Shipwright", "Buildpacks", Relation::IntegratesWith, 0.80),
+        ("Buildpacks", "Kubernetes", Relation::IntegratesWith, 0.75),
+        ("PipeCD", "Kubernetes", Relation::Extends, 0.80),
+        ("Backstage", "Argo", Relation::IntegratesWith, 0.70),
+        ("Backstage", "Tekton", Relation::IntegratesWith, 0.70),
+        // ── Container registry & artifacts ──────────────────────────
+        ("Harbor", "Kubernetes", Relation::IntegratesWith, 0.85),
+        ("Distribution", "Harbor", Relation::ComponentOf, 0.85),
+        ("ORAS", "Harbor", Relation::IntegratesWith, 0.80),
+        ("Artifact Hub", "Helm", Relation::IntegratesWith, 0.80),
+        ("Dragonfly", "Harbor", Relation::IntegratesWith, 0.80),
+        ("Dragonfly", "Kubernetes", Relation::IntegratesWith, 0.75),
+        // ── Serverless & events ─────────────────────────────────────
+        ("Knative", "Istio", Relation::IntegratesWith, 0.80),
+        ("Knative", "Contour", Relation::IntegratesWith, 0.75),
+        ("CloudEvents", "Knative", Relation::IntegratesWith, 0.85),
+        ("CloudEvents", "NATS", Relation::IntegratesWith, 0.70),
+        ("NATS", "Kubernetes", Relation::IntegratesWith, 0.80),
+        ("Strimzi", "Kubernetes", Relation::Extends, 0.85),
+        ("Dapr", "NATS", Relation::IntegratesWith, 0.70),
+        // ── Multi-cluster & edge ────────────────────────────────────
+        ("Karmada", "Kubernetes", Relation::Extends, 0.90),
+        (
+            "Open Cluster Management",
+            "Kubernetes",
+            Relation::Extends,
+            0.85,
+        ),
+        ("Clusternet", "Kubernetes", Relation::Extends, 0.80),
+        ("KubeStellar", "Kubernetes", Relation::Extends, 0.80),
+        // ── WASM runtime ────────────────────────────────────────────
+        (
+            "WasmEdge Runtime",
+            "Kubernetes",
+            Relation::IntegratesWith,
+            0.70,
+        ),
+        ("wasmCloud", "Kubernetes", Relation::IntegratesWith, 0.70),
+        ("wasmCloud", "NATS", Relation::IntegratesWith, 0.80),
+        // ── Messaging & data ────────────────────────────────────────
+        ("gRPC", "Envoy", Relation::IntegratesWith, 0.85),
+        ("gRPC", "OpenTelemetry", Relation::IntegratesWith, 0.75),
+        // ── Dev experience ──────────────────────────────────────────
+        ("Telepresence", "Kubernetes", Relation::IntegratesWith, 0.85),
+        ("Score", "Kubernetes", Relation::IntegratesWith, 0.75),
     ]
 }
 

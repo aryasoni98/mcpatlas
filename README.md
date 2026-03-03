@@ -11,9 +11,9 @@
   <img src=".github/images/MCPAtlas.png" alt="MCPAtlas - MCP Server for the CNCF Landscape" width="800">
 </p>
 
-**MCP Server for the CNCF Landscape** — Query 2,400+ cloud-native projects from any AI assistant.
+**MCP Server for the CNCF Landscape** — Query, compare, and contribute to 2,400+ cloud-native projects from any AI assistant.
 
-An open-source [Model Context Protocol](https://modelcontextprotocol.io/) server that makes the entire [CNCF Landscape](https://landscape.cncf.io/) available to AI tools like Claude, Cursor, VS Code Copilot, and custom agents.
+An open-source [Model Context Protocol](https://modelcontextprotocol.io/) server that makes the entire [CNCF Landscape](https://landscape.cncf.io/) available to AI tools like Claude, Cursor, VS Code Copilot, and custom agents. Paste a GitHub issue URL and get a compact resolution brief — resolve CNCF issues with AI in fewer turns and fewer tokens.
 
 | Install | Command |
 |---------|---------|
@@ -85,7 +85,7 @@ flowchart TB
 
 ## Features
 
-### MCP Tools (14)
+### MCP Tools (15)
 
 | Tool | Description |
 |------|-------------|
@@ -103,6 +103,7 @@ flowchart TB
 | `get_graph_stats` | Knowledge graph statistics |
 | `get_good_first_issues` | List projects good for contributors (filter by language/category) |
 | `get_migration_path` | Migration guide from one project to another |
+| `get_issue_context` | Fetch structured context for a GitHub issue — compact brief for AI-assisted resolution |
 
 ### MCP Resources
 
@@ -120,7 +121,7 @@ flowchart TB
 ### Other Capabilities
 
 - **Auto-completion** — Project names, categories, maturity levels, relation types
-- **Knowledge graph** — Auto-inferred relationships + 25 curated CNCF integration edges
+- **Knowledge graph** — Auto-inferred relationships + 130 curated CNCF integration edges
 - **Data caching** — Local JSON cache with configurable TTL (default 24h)
 - **Rate limiting** — Configurable concurrency limit for HTTP transport
 - **Triple transport** — STDIO (Content-Length framing), HTTP/SSE, and Streamable HTTP (MCP 2025-03-26)
@@ -301,7 +302,7 @@ The **project site** (landing page and in-app docs) is built and deployed via Gi
 
 Before a release, run `./scripts/verify-release.sh` from the repo root to verify the site build.
 
-See also [CONTRIBUTING.md](CONTRIBUTING.md), [GOVERNANCE.md](GOVERNANCE.md), [SECURITY.md](SECURITY.md), [ROADMAP.md](ROADMAP.md), and the [Launch Readiness Report](docs/LAUNCH_READINESS_REPORT.md) (open-source and production readiness).
+See also [CONTRIBUTING.md](CONTRIBUTING.md), [GOVERNANCE.md](GOVERNANCE.md), [SECURITY.md](SECURITY.md), [ROADMAP.md](ROADMAP.md), and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## Reporting usage
 

@@ -5,7 +5,7 @@ Aligned with [ROADMAP.md](https://github.com/mcp-atlas/mcp-atlas/blob/main/ROADM
 ## Phase 1: Foundation (complete)
 
 - Core MCP server (STDIO, SSE, Streamable HTTP)
-- 14 tools, resources, prompts
+- 15 tools, resources, prompts
 - Docker, documentation, CI
 - Homebrew formula template
 
