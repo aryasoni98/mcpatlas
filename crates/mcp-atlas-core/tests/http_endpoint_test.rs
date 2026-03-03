@@ -86,6 +86,7 @@ fn test_state() -> Arc<AppState> {
         vector_backend: None,
         plugin_tools: std::sync::RwLock::new(Vec::new()),
         audit_logger: None,
+        github_client: None,
     })
 }
 
@@ -195,7 +196,7 @@ async fn test_mcp_post_tools_list() {
     let result: Value = serde_json::from_slice(&body).unwrap();
 
     let tools = result["result"]["tools"].as_array().unwrap();
-    assert_eq!(tools.len(), 14);
+    assert_eq!(tools.len(), 15);
 }
 
 #[tokio::test]
@@ -404,7 +405,7 @@ async fn test_streamable_session_lifecycle() {
     assert_eq!(response.status(), StatusCode::OK);
     let body = response.into_body().collect().await.unwrap().to_bytes();
     let result: Value = serde_json::from_slice(&body).unwrap();
-    assert_eq!(result["result"]["tools"].as_array().unwrap().len(), 14);
+    assert_eq!(result["result"]["tools"].as_array().unwrap().len(), 15);
 
     // Step 3: Delete session
     let app = build_router(state.clone());

@@ -2,14 +2,12 @@
 
 Public roadmap for MCPAtlas. Aligned with [MCP_BLUEPRINT.md](MCP_BLUEPRINT.md) and [DEEP_PLAN.md](DEEP_PLAN.md).
 
-**High-level vision & end goal:** See [docs/ROADMAP_VISION.md](docs/ROADMAP_VISION.md).
-
 ## Phase 1: Foundation (complete)
 
 **Goal:** Installable, usable MCP server with core data and search.
 
 - [x] Core MCP server (STDIO, SSE, Streamable HTTP)
-- [x] 14 tools: search, get_project, compare, alternatives, health, suggest_stack, trends, graph, get_good_first_issues, get_migration_path
+- [x] 15 tools: search, get_project, compare, alternatives, health, suggest_stack, trends, graph, get_good_first_issues, get_migration_path, get_issue_context
 - [x] Resources and prompts
 - [x] Docker image and release workflow (multi-arch binaries + container + SBOM)
 - [x] Documentation (in-app docs at /docs), CONTRIBUTING, SECURITY, GOVERNANCE
@@ -53,16 +51,16 @@ Public roadmap for MCPAtlas. Aligned with [MCP_BLUEPRINT.md](MCP_BLUEPRINT.md) a
 - SLSA Level 3 provenance, cosign signing
 - Performance tuning (persistent Tantivy index, search cache)
 
-## Phase 5: AI-augmented contribution (future)
+## Phase 5: AI-augmented contribution (in progress)
 
 **Goal:** Token-efficient issue resolution for CNCF-related repos.
 
-- [ ] `get_issue_context` tool: repo URL + issue URL → compact resolution brief
-- [ ] GitHub API integration for issues (octocrab)
-- [ ] CNCF project metadata attached when repo is in landscape
-- [ ] Workflow: paste issue URL → AI gets brief → resolves in &lt;5 turns, &lt;20K tokens
-
-See [docs/ROADMAP_VISION.md](docs/ROADMAP_VISION.md) for full vision.
+- [x] `get_issue_context` tool: repo + issue number → compact resolution brief (title, summary, labels, suggested files, CNCF project match)
+- [x] GitHub API integration for issues (reqwest, runtime `GITHUB_TOKEN`)
+- [x] CNCF project metadata attached when repo is in landscape
+- [x] File path extraction from issue body, issue type classification from labels
+- [ ] Workflow refinement: paste issue URL → AI gets brief → resolves in &lt;5 turns, &lt;20K tokens
+- [ ] Issue comments and linked PRs in context brief
 
 ## Success metrics (targets)
 
@@ -71,7 +69,7 @@ See [docs/ROADMAP_VISION.md](docs/ROADMAP_VISION.md) for full vision.
 | GitHub stars | 500 | 2,000 | 10,000 |
 | Monthly downloads | 1K | 10K | 100K |
 | Contributors | 5 | 20 | 50+ |
-| MCP tools | 14 | 14+ | 20+ |
+| MCP tools | 15 | 15+ | 20+ |
 | Plugins | 0 | 3 | 15+ |
 | CNCF status | — | Sandbox | Incubating prep |
 

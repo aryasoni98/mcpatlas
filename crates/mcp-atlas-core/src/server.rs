@@ -47,6 +47,9 @@ pub struct AppState {
     pub plugin_tools: std::sync::RwLock<Vec<tools::DynamicTool>>,
     /// Optional audit logger for tool calls (params_hash, status, latency_ms; no PII).
     pub audit_logger: Option<std::sync::Arc<dyn crate::audit::AuditLogger>>,
+    /// HTTP client for runtime GitHub API calls (e.g. `get_issue_context`).
+    /// Built with the configured `GITHUB_TOKEN` if available.
+    pub github_client: Option<reqwest::Client>,
 }
 
 /// Main entry point — loads data, builds index, starts MCP transport.
@@ -138,6 +141,15 @@ async fn init_state(
 
     let (embedding_provider, vector_backend) = init_vector_layer(config).await?;
 
+    let github_client =
+        match mcp_atlas_data::github::build_github_client(config.github_token.as_deref()) {
+            Ok(c) => Some(c),
+            Err(e) => {
+                tracing::warn!("Could not build GitHub client for runtime tools: {e}");
+                None
+            }
+        };
+
     Ok(AppState {
         projects,
         search_index,
@@ -156,6 +168,7 @@ async fn init_state(
         in_flight: std::sync::RwLock::new(std::collections::HashMap::new()),
         plugin_tools: std::sync::RwLock::new(Vec::new()),
         audit_logger: Some(std::sync::Arc::new(crate::audit::StderrAuditLogger)),
+        github_client,
     })
 }
 

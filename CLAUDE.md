@@ -5,10 +5,10 @@ MCPAtlas is an MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native pr
 
 ## Architecture
 - **Rust workspace** with 6 crates: `core`, `data`, `search`, `graph`, `plugins`, `cli`; optional `mcp-atlas-graph-surrealdb` when `--features graph-surrealdb`
-- **Project site** (`site/`): Vite + React + Tailwind + Framer Motion landing with in-app docs at `/docs` (markdown in `site/src/content/docs/`); built with `npm ci && npm run build` in `site/`; deployed to GitHub Pages (`.github/workflows/pages.yml`) or Vercel (root `site`, `site/vercel.json`). For landing and release context see `docs/RELEASE_EXECUTION_REPORT.md` and `docs/FRONTEND_ARCHITECT_TASK.md`.
+- **Project site** (`site/`): Vite + React + Tailwind + Framer Motion landing with in-app docs at `/docs` (markdown in `site/src/content/docs/`); built with `npm ci && npm run build` in `site/`; deployed to GitHub Pages (`.github/workflows/pages.yml`) or Vercel (root `site`, `site/vercel.json`).
 - MCP protocol over STDIO (local), SSE/HTTP (remote), and Streamable HTTP (MCP 2025-03-26)
 - Tantivy for full-text search, serde for serialization
-- Knowledge graph engine for project relationships (auto-inferred + 25 curated edges)
+- Knowledge graph engine for project relationships (auto-inferred + 130 curated edges)
 - Data sourced from `cncf/landscape` GitHub repo (landscape.yml)
 - Maturity derived from `project:` field in YAML (graduated/incubating/sandbox/archived)
 - Local JSON cache with configurable TTL (default 24h)
@@ -28,7 +28,7 @@ MCPAtlas is an MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native pr
 - Modify the MCP protocol wire format without updating the spec version
 - Commit `.env` files or API tokens
 
-## MCP Tools (14 implemented)
+## MCP Tools (15 implemented)
 - `search_projects` — full-text search across 2,400+ projects
 - `get_project` — detailed project lookup by name
 - `compare_projects` — side-by-side comparison table
@@ -43,6 +43,7 @@ MCPAtlas is an MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native pr
 - `get_graph_stats` — knowledge graph statistics
 - `get_good_first_issues` — list projects good for contributors (filter by language/category)
 - `get_migration_path` — migration guide from one project to another
+- `get_issue_context` — structured context for a GitHub issue (compact brief for AI-assisted resolution; requires GITHUB_TOKEN)
 
 ## MCP Prompts (4 implemented)
 - `evaluate_tool` — structured analysis of a CNCF project for a use case
@@ -76,7 +77,7 @@ MCPAtlas is an MCP server for the CNCF Landscape. Exposes 2,400+ cloud-native pr
 
 ## Commands
 - `cargo build` — build all crates
-- `cargo test --workspace` — run all tests (89 total)
+- `cargo test --workspace` — run all tests (124 total)
 - `cargo run -p mcp-atlas-core -- --transport stdio --skip-github --landscape-file data/landscape.yml` — run locally
 - `cargo run -p mcp-atlas-core -- --transport sse --port 3000` — run as HTTP server
 - `cargo run -p mcp-atlas-cli -- sync` — download fresh landscape data

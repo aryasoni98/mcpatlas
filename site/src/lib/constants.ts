@@ -33,10 +33,10 @@ export const SYSTEM_FACT_STRIP =
 
 export const FEATURES: FeatureItem[] = [
   {
-    title: "14 MCP tools",
+    title: "15 MCP tools",
     description:
-      "search_projects, get_project, compare_projects, suggest_stack, get_relationships, get_migration_path, and more.",
-    mono: "search_projects, get_project, compare_projects, ...",
+      "get_issue_context, search_projects, get_project, compare_projects, suggest_stack, get_relationships, get_migration_path, and more.",
+    mono: "get_issue_context, search_projects, get_project, ...",
   },
   {
     title: "Resources & prompts",
@@ -79,7 +79,7 @@ export interface UseCaseItem {
 
 /** Stack list for Solution section (spec: counts and protocol names). */
 export const STACK_LIST =
-  "14 tools · 4 prompts · cncf:// resources · STDIO · SSE · Streamable HTTP";
+  "15 tools · 4 prompts · cncf:// resources · STDIO · SSE · Streamable HTTP";
 
 export const USE_CASES: UseCaseItem[] = [
   {
@@ -115,7 +115,7 @@ export const ROADMAP_PHASES: RoadmapPhase[] = [
   {
     name: "Phase 1: Foundation",
     goal: "Installable, usable MCP server with core data and search.",
-    done: ["Core MCP server (STDIO, SSE, Streamable HTTP)", "14 tools, resources, prompts", "Docker, mdBook, CI", "Homebrew template"],
+    done: ["Core MCP server (STDIO, SSE, Streamable HTTP)", "15 tools, resources, prompts", "Docker, mdBook, CI", "Homebrew template"],
     upcoming: [],
   },
   {
@@ -150,7 +150,7 @@ export const SUCCESS_METRICS: SuccessMetricRow[] = [
   { metric: "GitHub stars", "3mo": "500", "6mo": "2,000", "12mo": "10,000" },
   { metric: "Monthly downloads", "3mo": "1K", "6mo": "10K", "12mo": "100K" },
   { metric: "Contributors", "3mo": "5", "6mo": "20", "12mo": "50+" },
-  { metric: "MCP tools", "3mo": "12", "6mo": "14+", "12mo": "20+" },
+  { metric: "MCP tools", "3mo": "15", "6mo": "15+", "12mo": "20+" },
   { metric: "Plugins", "3mo": "0", "6mo": "3", "12mo": "15+" },
   { metric: "CNCF status", "3mo": "", "6mo": "Sandbox", "12mo": "Incubating prep" },
 ];

@@ -16,7 +16,7 @@ import { Heading } from "@/components/ui/Typography";
 const BENTO_FEATURES = [
   {
     Icon: LayoutGrid,
-    name: "14 MCP tools",
+    name: "15 MCP tools",
     description:
       "search_projects, get_project, compare_projects, suggest_stack, get_relationships, get_migration_path, and more.",
     href: DOCS_URL,

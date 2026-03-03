@@ -3,6 +3,7 @@ mod completion;
 mod dispatch;
 mod graph;
 mod hybrid;
+mod issue;
 mod prompts;
 mod recommend;
 mod resources;

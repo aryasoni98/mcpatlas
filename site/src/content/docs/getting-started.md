@@ -86,4 +86,4 @@ Point the client at your server URL, e.g. `http://localhost:3000/sse`, with opti
 - [Project structure](/docs/project-structure)  Repo layout and key files.
 - [Configuration](/docs/configuration)  Cache, rate limits, and options.
 - [Deployment](/docs/deployment)  Docker Compose and Kubernetes.
-- [Tools reference](/docs/tools-reference)  All 14 tools and their parameters.
+- [Tools reference](/docs/tools-reference)  All 15 tools and their parameters.

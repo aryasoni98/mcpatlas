@@ -1,6 +1,6 @@
 # Tools Reference
 
-The server exposes 14+ MCP tools. Key ones:
+The server exposes 15 MCP tools:
 
 | Tool | Description |
 |------|-------------|
@@ -18,5 +18,6 @@ The server exposes 14+ MCP tools. Key ones:
 | `get_graph_stats` | Knowledge graph statistics. |
 | `get_good_first_issues` | Projects good for contributors (filter by language/category). |
 | `get_migration_path` | Migration guide from one project to another. |
+| `get_issue_context` | Structured context for a GitHub issue — compact brief for AI-assisted resolution. Requires `GITHUB_TOKEN`. |
 
 Tool inputs and outputs follow the MCP tool schema. Use your client’s tool introspection or see the server source in `crates/mcp-atlas-core/src/tools/`.

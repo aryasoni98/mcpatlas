@@ -11,6 +11,7 @@ use crate::server::AppState;
 use super::args;
 use super::completion;
 use super::graph;
+use super::issue;
 use super::prompts;
 use super::recommend;
 use super::resources;
@@ -155,6 +156,7 @@ async fn dispatch_tool(
         "get_graph_stats" => graph::handle_get_graph_stats(state).await,
         "get_good_first_issues" => search::handle_get_good_first_issues(state, arguments),
         "get_migration_path" => recommend::handle_get_migration_path(state, arguments).await,
+        "get_issue_context" => issue::handle_get_issue_context(state, arguments).await,
         _ => {
             let handler = {
                 let guard = state

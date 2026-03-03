@@ -108,6 +108,19 @@ pub struct Landscape {
     pub landscape: Vec<Category>,
 }
 
+/// A GitHub issue with compact metadata for AI-assisted resolution.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct GitHubIssue {
+    pub number: u64,
+    pub title: String,
+    pub body: Option<String>,
+    pub state: String,
+    pub labels: Vec<String>,
+    pub html_url: String,
+    pub created_at: String,
+    pub user: Option<String>,
+}
+
 /// Health score for a project (computed metric).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HealthScore {
