@@ -142,6 +142,7 @@ fn sample_state() -> Arc<mcp_atlas_core::server::AppState> {
         vector_backend: None,
         plugin_tools: std::sync::RwLock::new(Vec::new()),
         audit_logger: None,
+        github_client: None,
     })
 }
 
@@ -795,7 +796,7 @@ async fn test_tools_list_count() {
 
     let response = mcp_atlas_core::tools::handle_jsonrpc(&state, &request).await;
     let tools = response["result"]["tools"].as_array().unwrap();
-    assert_eq!(tools.len(), 14, "Expected 14 tools, got {}", tools.len());
+    assert_eq!(tools.len(), 15, "Expected 15 tools, got {}", tools.len());
 }
 
 #[tokio::test]
@@ -1452,4 +1453,172 @@ async fn test_tool_error_includes_data() {
             .contains("Unknown tool")
     );
     assert_eq!(response["error"]["data"]["tool"], "nonexistent_tool");
+}
+
+// --- get_issue_context tests ---
+
+#[tokio::test]
+async fn test_get_issue_context_requires_github_client() {
+    let state = sample_state(); // github_client is None
+    let request = json!({
+        "jsonrpc": "2.0",
+        "id": 1000,
+        "method": "tools/call",
+        "params": {
+            "name": "get_issue_context",
+            "arguments": { "repo": "kubernetes/website", "issue": 54739 }
+        }
+    });
+
+    let response = mcp_atlas_core::tools::handle_jsonrpc(&state, &request).await;
+    assert!(!response["error"].is_null());
+    assert!(
+        response["error"]["message"]
+            .as_str()
+            .unwrap()
+            .contains("GitHub client not configured"),
+    );
+}
+
+/// Build a sample state with a GitHub client configured (for testing
+/// `get_issue_context` input validation without hitting the network).
+fn sample_state_with_github() -> Arc<mcp_atlas_core::server::AppState> {
+    use mcp_atlas_data::models::{GitHubMetrics, Maturity, Project};
+    use mcp_atlas_search::SearchIndex;
+
+    let projects = vec![Project {
+        name: "Prometheus".into(),
+        description: Some("Monitoring system".into()),
+        homepage_url: Some("https://prometheus.io".into()),
+        repo_url: Some("https://github.com/prometheus/prometheus".into()),
+        logo: None,
+        crunchbase: None,
+        category: "Observability and Analysis".into(),
+        subcategory: "Monitoring".into(),
+        maturity: Some(Maturity::Graduated),
+        extra: Default::default(),
+        github: Some(GitHubMetrics {
+            stars: 55000,
+            forks: 9000,
+            open_issues: 800,
+            contributors: 1200,
+            last_commit: Some("2025-03-01T10:00:00Z".into()),
+            license: Some("Apache-2.0".into()),
+            language: Some("Go".into()),
+        }),
+        artifact_hub_packages: None,
+        summary: None,
+        summary_content_hash: None,
+    }];
+
+    let search_index = SearchIndex::build(&projects).unwrap();
+    let graph = std::sync::Arc::new(mcp_atlas_graph::engine::ProjectGraph::build(&projects));
+    Arc::new(mcp_atlas_core::server::AppState {
+        projects,
+        search_index,
+        graph,
+        sessions: std::sync::RwLock::new(std::collections::HashSet::new()),
+        log_level: std::sync::RwLock::new("info".into()),
+        log_level_reload: None,
+        request_count: std::sync::atomic::AtomicU64::new(0),
+        start_time: std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap_or_default()
+            .as_secs(),
+        resource_subscriptions: std::sync::RwLock::new(std::collections::HashSet::new()),
+        in_flight: std::sync::RwLock::new(std::collections::HashMap::new()),
+        embedding_provider: None,
+        vector_backend: None,
+        plugin_tools: std::sync::RwLock::new(Vec::new()),
+        audit_logger: None,
+        github_client: Some(reqwest::Client::new()),
+    })
+}
+
+#[tokio::test]
+async fn test_get_issue_context_missing_repo() {
+    let state = sample_state_with_github();
+    let request = json!({
+        "jsonrpc": "2.0",
+        "id": 1001,
+        "method": "tools/call",
+        "params": {
+            "name": "get_issue_context",
+            "arguments": { "issue": 1 }
+        }
+    });
+
+    let response = mcp_atlas_core::tools::handle_jsonrpc(&state, &request).await;
+    assert!(!response["error"].is_null());
+    assert!(
+        response["error"]["message"]
+            .as_str()
+            .unwrap()
+            .contains("Missing required parameter: repo"),
+    );
+}
+
+#[tokio::test]
+async fn test_get_issue_context_missing_issue() {
+    let state = sample_state_with_github();
+    let request = json!({
+        "jsonrpc": "2.0",
+        "id": 1002,
+        "method": "tools/call",
+        "params": {
+            "name": "get_issue_context",
+            "arguments": { "repo": "kubernetes/website" }
+        }
+    });
+
+    let response = mcp_atlas_core::tools::handle_jsonrpc(&state, &request).await;
+    assert!(!response["error"].is_null());
+    assert!(
+        response["error"]["message"]
+            .as_str()
+            .unwrap()
+            .contains("issue"),
+    );
+}
+
+#[tokio::test]
+async fn test_get_issue_context_invalid_repo_format() {
+    let state = sample_state_with_github();
+    let request = json!({
+        "jsonrpc": "2.0",
+        "id": 1003,
+        "method": "tools/call",
+        "params": {
+            "name": "get_issue_context",
+            "arguments": { "repo": "justaword", "issue": 1 }
+        }
+    });
+
+    let response = mcp_atlas_core::tools::handle_jsonrpc(&state, &request).await;
+    assert!(!response["error"].is_null());
+    assert!(
+        response["error"]["message"]
+            .as_str()
+            .unwrap()
+            .contains("Invalid repo format"),
+    );
+}
+
+#[tokio::test]
+async fn test_tools_list_includes_get_issue_context() {
+    let state = sample_state();
+    let request = json!({
+        "jsonrpc": "2.0",
+        "id": 1004,
+        "method": "tools/list",
+        "params": {}
+    });
+
+    let response = mcp_atlas_core::tools::handle_jsonrpc(&state, &request).await;
+    let tools = response["result"]["tools"].as_array().unwrap();
+    let names: Vec<&str> = tools.iter().map(|t| t["name"].as_str().unwrap()).collect();
+    assert!(
+        names.contains(&"get_issue_context"),
+        "get_issue_context should be in tools list"
+    );
 }

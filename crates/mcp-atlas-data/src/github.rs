@@ -2,7 +2,7 @@ use anyhow::{Context, Result};
 use serde::Deserialize;
 use tracing::{info, warn};
 
-use crate::models::GitHubMetrics;
+use crate::models::{GitHubIssue, GitHubMetrics};
 
 /// Extract owner/repo from a GitHub URL.
 /// e.g., "https://github.com/prometheus/prometheus" → ("prometheus", "prometheus")
@@ -68,6 +68,67 @@ pub async fn fetch_github_metrics(
         last_commit: data.pushed_at,
         license: data.license.and_then(|l| l.spdx_id),
         language: data.language,
+    })
+}
+
+/// Response shape from the GitHub REST API for an issue.
+#[derive(Debug, Deserialize)]
+struct GitHubIssueResponse {
+    number: u64,
+    title: String,
+    body: Option<String>,
+    state: String,
+    labels: Vec<GitHubLabel>,
+    html_url: String,
+    created_at: String,
+    user: Option<GitHubUser>,
+}
+
+#[derive(Debug, Deserialize)]
+struct GitHubLabel {
+    name: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct GitHubUser {
+    login: String,
+}
+
+/// Fetch a single GitHub issue by owner, repo, and issue number.
+pub async fn fetch_github_issue(
+    client: &reqwest::Client,
+    owner: &str,
+    repo: &str,
+    issue_number: u64,
+) -> Result<GitHubIssue> {
+    let url = format!("https://api.github.com/repos/{owner}/{repo}/issues/{issue_number}");
+    let response = client
+        .get(&url)
+        .header("Accept", "application/vnd.github+json")
+        .header("X-GitHub-Api-Version", "2022-11-28")
+        .send()
+        .await
+        .with_context(|| format!("Failed to fetch issue {owner}/{repo}#{issue_number}"))?;
+
+    let status = response.status();
+    if !status.is_success() {
+        anyhow::bail!("GitHub API returned HTTP {status} for issue {owner}/{repo}#{issue_number}");
+    }
+
+    let data: GitHubIssueResponse = response
+        .json()
+        .await
+        .context("Failed to parse GitHub issue response")?;
+
+    Ok(GitHubIssue {
+        number: data.number,
+        title: data.title,
+        body: data.body,
+        state: data.state,
+        labels: data.labels.into_iter().map(|l| l.name).collect(),
+        html_url: data.html_url,
+        created_at: data.created_at,
+        user: data.user.map(|u| u.login),
     })
 }
 

@@ -187,6 +187,19 @@ pub fn core_tools_list(annot: &Value) -> Vec<Value> {
                 "required": []
             },
             "annotations": annot
+        },
+        {
+            "name": "get_issue_context",
+            "description": "Get structured context for a GitHub issue to enable AI-assisted resolution. Returns a compact brief with title, summary, labels, suggested files, and CNCF project metadata when available. Requires GITHUB_TOKEN.",
+            "inputSchema": {
+                "type": "object",
+                "properties": {
+                    "repo": { "type": "string", "description": "GitHub repository — 'owner/repo' format or full URL (e.g. 'kubernetes/website' or 'https://github.com/kubernetes/website')" },
+                    "issue": { "type": "number", "description": "Issue number (e.g. 54739)" }
+                },
+                "required": ["repo", "issue"]
+            },
+            "annotations": annot
         }
     ]);
     arr.as_array().cloned().unwrap_or_default()

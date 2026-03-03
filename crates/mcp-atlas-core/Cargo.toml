@@ -40,6 +40,7 @@ tower-http = { workspace = true }
 uuid = { workspace = true }
 tokio-util = { workspace = true }
 sha2 = "0.10"
+reqwest = { workspace = true }
 
 [dev-dependencies]
 insta = { workspace = true }
